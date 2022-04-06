@@ -1,19 +1,25 @@
-require("@nomiclabs/hardhat-waffle");
-require("@nomiclabs/hardhat-etherscan");
-require("solidity-coverage");
-require("hardhat-contract-sizer");
-require("hardhat-gas-reporter");
-require("hardhat-docgen");
+import "@nomiclabs/hardhat-etherscan";
+import "@nomiclabs/hardhat-waffle";
+import "@typechain/hardhat";
+import { config as dotenvConfig } from "dotenv";
+import "hardhat-contract-sizer";
+import "hardhat-docgen";
+import "hardhat-gas-reporter";
+import { HardhatUserConfig } from "hardhat/config";
+import {
+  HttpNetworkAccountsUserConfig,
+  NetworkUserConfig,
+} from "hardhat/types";
+import { resolve } from "path";
+import "solidity-coverage";
 
-require("./tasks");
-
-const { resolve } = require("path");
-const { config: dotenvConfig } = require("dotenv");
+// require tasks
+import "./tasks";
 
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 
-const ACCOUNT_TYPE = process.env.ACCOUNT_TYPE;
-const mnemonic = process.env.MNEMONIC;
+const ACCOUNT_TYPE: string = process.env.ACCOUNT_TYPE || "";
+const mnemonic: string = process.env.MNEMONIC || "";
 if (ACCOUNT_TYPE === "MNEMONIC" && !mnemonic) {
   throw new Error("Please set your MNEMONIC in a .env file");
 }
@@ -29,10 +35,11 @@ if (typeof INFURA_KEY === "undefined") {
   throw new Error(`INFURA_PROJECT_ID must be a defined environment variable`);
 }
 
-const infuraUrl = (network) => `https://${network}.infura.io/v3/${INFURA_KEY}`;
+const infuraUrl = (network: string): string =>
+  `https://${network}.infura.io/v3/${INFURA_KEY}`;
 
 const networks = {
-  hardhat: { chainId: 31337 },
+  // LOCAL
   ganache: { chainId: 1337, url: "http://127.0.0.1:7545" },
 
   // ETHEREUM
@@ -98,31 +105,33 @@ const networks = {
   },
 };
 
-// can add as many private keys as you want
-const accounts =
-  ACCOUNT_TYPE === "MNEMONIC"
-    ? {
-        count: 10,
-        mnemonic,
-        path: "m/44'/60'/0'/0",
-      }
-    : [
-        `0x${process.env.PRIVATE_KEY_1}`,
-        // `0x${process.env.PRIVATE_KEY_2}`,
-        // `0x${process.env.PRIVATE_KEY_3}`,
-        // `0x${process.env.PRIVATE_KEY_4}`,
-        // `0x${process.env.PRIVATE_KEY_5}`,
-      ];
+const getAccounts = (): HttpNetworkAccountsUserConfig => {
+  if (ACCOUNT_TYPE === "MNEMONIC")
+    return {
+      mnemonic,
+      count: 10,
+      path: "m/44'/60'/0'/0",
+    };
+  // can add as many private keys as you want
+  else
+    return [
+      `0x${process.env.PRIVATE_KEY_1}`,
+      // `0x${process.env.PRIVATE_KEY_2}`,
+      // `0x${process.env.PRIVATE_KEY_3}`,
+      // `0x${process.env.PRIVATE_KEY_4}`,
+      // `0x${process.env.PRIVATE_KEY_5}`,
+    ];
+};
 
-function getChainConfig(network) {
+function getChainConfig(network: keyof typeof networks): NetworkUserConfig {
   return {
-    accounts,
+    accounts: getAccounts(),
     chainId: networks[network].chainId,
     url: networks[network].url,
   };
 }
 
-module.exports = {
+const config: HardhatUserConfig = {
   contractSizer: {
     alphaSort: true,
     runOnCompile: process.env.CONTRACT_SIZER ? true : false,
@@ -156,14 +165,13 @@ module.exports = {
     currency: "USD",
     // if commented out then it fetches from ethGasStationAPI
     // gasPrice: process.env.GAS_PRICE,
-    coinmarketcap: process.env.COIN_MARKET_CAP_API_KEY || null,
+    coinmarketcap: process.env.COIN_MARKET_CAP_API_KEY || undefined,
     excludeContracts: [],
     src: "./contracts",
   },
   networks: {
-    hardhat: {
-      chainId: networks["hardhat"].chainId,
-    },
+    // LOCAL
+    hardhat: { chainId: 31337 },
     ganache: {
       chainId: networks["ganache"].chainId,
       url: networks["ganache"].url,
@@ -192,7 +200,7 @@ module.exports = {
   solidity: {
     compilers: [
       {
-        version: "0.8.12",
+        version: "0.8.13",
         settings: {
           metadata: {
             // Not including the metadata hash
@@ -209,4 +217,10 @@ module.exports = {
       },
     ],
   },
+  typechain: {
+    outDir: "src/types",
+    target: "ethers-v5",
+  },
 };
+
+export default config;
