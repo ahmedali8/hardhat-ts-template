@@ -1,5 +1,6 @@
 import { execSync } from "child_process";
 import { task } from "hardhat/config";
+import { TaskArguments } from "hardhat/types";
 import path from "path";
 
 import { ensureDirectory, writeFile } from "../utils/files";
@@ -8,7 +9,7 @@ import { pascalCase } from "../utils/string";
 // e.g. npx hardhat flatfile --contract TestingContract
 task("flatfile", "Creates a flattened sol file")
   .addParam("contract", "Contract name")
-  .setAction(async (taskArgs) => {
+  .setAction(async (taskArgs: TaskArguments) => {
     const { contract } = taskArgs;
 
     const output = execSync(
