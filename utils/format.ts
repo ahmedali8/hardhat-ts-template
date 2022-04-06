@@ -1,10 +1,11 @@
-"use strict";
+import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
+import { formatUnits, parseUnits } from "@ethersproject/units";
+import { Contract } from "ethers";
+import { ethers } from "hardhat";
 
-const { ethers } = require("hardhat");
-const { utils } = ethers;
-const { formatUnits, parseUnits } = require("@ethersproject/units");
-const { BigNumber } = require("@ethersproject/bignumber");
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const R = require("ramda");
+const { utils } = ethers;
 
 /**
  * Return the `labelValue` converted to string as Billions, Millions, Thousands etc.
@@ -12,7 +13,9 @@ const R = require("ramda");
  * @param labelValue number.
  * @return string value or undefined.
  */
-function convertToInternationalCurrencySystem(labelValue) {
+export function convertToInternationalCurrencySystem(
+  labelValue: number
+): string | undefined {
   if (!labelValue) {
     return undefined;
   }
@@ -49,7 +52,7 @@ function convertToInternationalCurrencySystem(labelValue) {
  * @param value number.
  * @return string value or undefined.
  */
-function omitEndZeros(value) {
+export function omitEndZeros(value: number): string | undefined {
   if (!value) return undefined;
   return value.toString().replace(/\.?0+$/, "");
 }
@@ -57,11 +60,10 @@ function omitEndZeros(value) {
 /**
  * Return the `value` converted to BigNumber.
  *
- * @param value string value.
- * @return BigNumber value or undefined.
+ * @param value string value preferred.
+ * @return BigNumber value
  */
-function toBN(value) {
-  if (!value) return undefined;
+export function toBN(value: string | number | bigint): BigNumber {
   return BigNumber.from(value);
 }
 
@@ -72,22 +74,24 @@ function toBN(value) {
  * @param precision fractionDecimals.
  * @return string value or undefined.
  */
-function numToFix(value, precision = 4) {
+export function numToFix(
+  value: number,
+  precision: number = 4
+): string | undefined {
   if (!value) return undefined;
 
   return value.toFixed(precision);
 }
 
 /**
-/**
  * Return the `gasPrice` converted to gwei.
  * formatUnits(value: BigNumberish, unitName?: BigNumberish | undefined): string
  * BigNumberish -> string, BigNumber, number, BytesLike or BigInt.`https://docs.ethers.io/v5/api/utils/bignumber/#BigNumberish`
  *
  * @param gasPrice BigNumberish value to be converted, preferred is BigNumber.
- * @return string value or undefined.
+ * @return string value
  */
-function toGwei(gasPrice) {
+export function toGwei(gasPrice: BigNumberish): string {
   return formatUnits(gasPrice, "gwei");
 }
 
@@ -100,7 +104,10 @@ function toGwei(gasPrice) {
  * @param decimals decimal value or BigNumberish.
  * @return BigNumber value or undefined.
  */
-function toWei(value = "", decimals = 18) {
+export function toWei(
+  value: string,
+  decimals: number = 18
+): BigNumber | undefined {
   if (!value) return undefined;
   return parseUnits(value, decimals);
 }
@@ -114,7 +121,10 @@ function toWei(value = "", decimals = 18) {
  * @param decimals decimal value or BigNumberish.
  * @return string value or undefined.
  */
-function fromWei(value, decimals = 18) {
+export function fromWei(
+  value: BigNumberish,
+  decimals: number = 18
+): string | undefined {
   if (!value) return undefined;
   return formatUnits(value, decimals);
 }
@@ -127,7 +137,10 @@ function fromWei(value, decimals = 18) {
  * @param decimals decimal value or BigNumberish.
  * @return number value or undefined.
  */
-function fromWeiToNum(value, decimals = 18) {
+export function fromWeiToNum(
+  value: BigNumberish,
+  decimals: number = 18
+): number | undefined {
   if (!value) return undefined;
 
   const fromWeiString = fromWei(value, decimals) ?? "";
@@ -143,7 +156,11 @@ function fromWeiToNum(value, decimals = 18) {
  * @param precision fractionDecimals.
  * @return number value or undefined.
  */
-function fromWeiToFixedNum(value, decimals = 18, precision = 4) {
+export function fromWeiToFixedNum(
+  value: BigNumberish,
+  decimals: number = 18,
+  precision: number = 4
+): number | undefined {
   if (!value) return undefined;
 
   const fromWeiNum = fromWeiToNum(value, decimals) ?? 0;
@@ -156,9 +173,9 @@ function fromWeiToFixedNum(value, decimals = 18, precision = 4) {
  * Calculates percentage according to `bn` and `percent`.
  * @param {*} bn bignumber
  * @param {*} percent percentage value
- * @returns
+ * @returns BigNumber
  */
-function calculatePercentage(bn, percent) {
+export function calculatePercentage(bn: BigNumber, percent: number): BigNumber {
   return bn.mul(percent).div("100");
 }
 
@@ -170,7 +187,10 @@ function calculatePercentage(bn, percent) {
  * @param {*} contractArgs contract arguments
  * @returns https://docs.ethers.io/v5/api/utils/abi/coder/#AbiCoder
  */
-const abiEncodeArgs = (contract, contractArgs) => {
+export const abiEncodeArgs = (
+  contract: Contract,
+  contractArgs: any[]
+): string => {
   // not writing abi encoded args if this does not pass
   if (
     !contractArgs ||
@@ -184,18 +204,4 @@ const abiEncodeArgs = (contract, contractArgs) => {
     contractArgs
   );
   return encoded;
-};
-
-module.exports = {
-  convertToInternationalCurrencySystem,
-  omitEndZeros,
-  toBN,
-  numToFix,
-  toGwei,
-  toWei,
-  fromWei,
-  fromWeiToNum,
-  fromWeiToFixedNum,
-  calculatePercentage,
-  abiEncodeArgs,
 };

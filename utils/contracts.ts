@@ -1,24 +1,41 @@
-"use strict";
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import chalk from "chalk";
+import { Contract, ContractFactory, Signer } from "ethers";
+import { ethers } from "hardhat";
+import { Libraries } from "hardhat/types";
 
-const chalk = require("chalk");
-const { ethers } = require("hardhat");
-const { fromWei, abiEncodeArgs } = require("./format");
-const { etherBalance, getExtraGasInfo } = require("./misc");
-const { writeFile } = require("./files");
+import { writeFile } from "./files";
+import { abiEncodeArgs, fromWei } from "./format";
+import { etherBalance, getExtraGasInfo } from "./misc";
+
 const { getContractAt, getContractFactory } = ethers;
 
-async function getContractIns(contract, address) {
-  return await getContractAt(contract, address);
+export async function getContractIns(
+  contractNameOrAbi: string | any[],
+  address: string,
+  signer: Signer
+): Promise<Contract> {
+  return await getContractAt(contractNameOrAbi, address, signer);
 }
 
-async function deployContract({
+interface DeployContract {
+  signer: SignerWithAddress;
+  contractName: string;
+  args: Array<any>;
+  overrides?: {};
+  libraries?: Libraries | {};
+}
+
+export async function deployContract({
   signer,
   contractName,
   args = [],
-  overrides = {},
-  libraries = {},
-}) {
+  overrides,
+  libraries,
+}: DeployContract): Promise<Contract> {
   const { chainId, name } = await ethers.provider.getNetwork();
+  const ethBalance = await etherBalance(signer.address);
+
   console.log(
     ` 🛰  Deploying: ${chalk.cyan(
       contractName
@@ -26,13 +43,16 @@ async function deployContract({
   );
   console.log(
     ` 🎭 Deployer: ${chalk.cyan(signer.address)}, Balance: ${chalk.grey(
-      fromWei(await etherBalance(signer.address))
+      fromWei(ethBalance ?? 0)
     )} ETH`
   );
 
-  const contractArtifacts = await getContractFactory(contractName, {
-    libraries: libraries,
-  });
+  const contractArtifacts: ContractFactory = await getContractFactory(
+    contractName,
+    {
+      libraries: libraries,
+    }
+  );
   const contract = await contractArtifacts
     .connect(signer)
     .deploy(...args, overrides);
@@ -40,7 +60,7 @@ async function deployContract({
 
   let extraGasInfo = "";
   if (contract && contract.deployTransaction) {
-    extraGasInfo = await getExtraGasInfo(contract.deployTransaction);
+    extraGasInfo = (await getExtraGasInfo(contract.deployTransaction)) ?? "";
   }
 
   console.log(
@@ -63,8 +83,3 @@ async function deployContract({
 
   return contract;
 }
-
-module.exports = {
-  getContractIns,
-  deployContract,
-};

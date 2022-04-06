@@ -1,5 +1,3 @@
-"use strict";
-
 // String utils
 //
 // resources:
@@ -8,21 +6,21 @@
 /**
  * "Safer" String.toLowerCase()
  */
-function lowerCase(str) {
+export function lowerCase(str: string) {
   return str.toLowerCase();
 }
 
 /**
  * "Safer" String.toUpperCase()
  */
-function upperCase(str) {
+export function upperCase(str: string) {
   return str.toUpperCase();
 }
 
 /**
  * Convert string to camelCase text.
  */
-function camelCase(str) {
+export function camelCase(str: string) {
   str = replaceAccents(str);
   str = removeNonWord(str)
     .replace(/\-/g, " ") //convert all hyphens to spaces
@@ -35,7 +33,7 @@ function camelCase(str) {
 /**
  * Add space between camelCase text.
  */
-function unCamelCase(str) {
+export function unCamelCase(str: string) {
   str = str.replace(/([a-z\xE0-\xFF])([A-Z\xC0\xDF])/g, "$1 $2");
   str = str.toLowerCase(); //add space between camelCase text
   return str;
@@ -44,21 +42,21 @@ function unCamelCase(str) {
 /**
  * UPPERCASE first char of each word.
  */
-function properCase(str) {
+export function properCase(str: string) {
   return lowerCase(str).replace(/^\w|\s\w/g, upperCase);
 }
 
 /**
  * camelCase + UPPERCASE first char
  */
-function pascalCase(str) {
+export function pascalCase(str: string) {
   return camelCase(str).replace(/^[a-z]/, upperCase);
 }
 
 /**
  * UPPERCASE first char of each sentence and lowercase other chars.
  */
-function sentenceCase(str) {
+export function sentenceCase(str: string) {
   // Replace first char of each sentence (new line or after '.\s+') to
   // UPPERCASE
   return lowerCase(str).replace(/(^\w)|\.\s+(\w)/gm, upperCase);
@@ -69,7 +67,7 @@ function sentenceCase(str) {
  * replace spaces with the specified delimeter.
  * Does not split camelCase text.
  */
-function slugify(str, delimeter) {
+export function slugify(str: string, delimeter: string | null) {
   if (delimeter == null) {
     delimeter = "-";
   }
@@ -86,7 +84,7 @@ function slugify(str, delimeter) {
 /**
  * Replaces spaces with hyphens, split camelCase text, remove non-word chars, remove accents and convert to lower case.
  */
-function hyphenate(str) {
+export function hyphenate(str: string) {
   str = unCamelCase(str);
   return slugify(str, "-");
 }
@@ -94,7 +92,7 @@ function hyphenate(str) {
 /**
  * Replaces hyphens with spaces. (only hyphens between word chars)
  */
-function unhyphenate(str) {
+export function unhyphenate(str: string) {
   return str.replace(/(\w)(-)(\w)/g, "$1 $3");
 }
 
@@ -102,7 +100,7 @@ function unhyphenate(str) {
  * Replaces spaces with underscores, split camelCase text, remove
  * non-word chars, remove accents and convert to lower case.
  */
-function underscore(str) {
+export function underscore(str: string) {
   str = unCamelCase(str);
   return slugify(str, "_");
 }
@@ -110,14 +108,14 @@ function underscore(str) {
 /**
  * Remove non-word chars.
  */
-function removeNonWord(str) {
+export function removeNonWord(str: string) {
   return str.replace(/[^0-9a-zA-Z\xC0-\xFF \-]/g, "");
 }
 
 /**
  * Convert line-breaks from DOS/MAC to a single standard (UNIX by default)
  */
-function normalizeLineBreaks(str, lineEnd) {
+export function normalizeLineBreaks(str: string, lineEnd: string) {
   lineEnd = lineEnd || "\n";
 
   return str
@@ -129,7 +127,7 @@ function normalizeLineBreaks(str, lineEnd) {
 /**
  * Replaces all accented chars with regular ones
  */
-function replaceAccents(str) {
+export function replaceAccents(str: string) {
   // verifies if the String has accents and replace them
   if (str.search(/[\xC0-\xFF]/g) > -1) {
     str = str
@@ -162,21 +160,21 @@ function replaceAccents(str) {
 /**
  * Searches for a given substring
  */
-function contains(str, substring, fromIndex) {
+export function contains(str: string | any[], substring: any, fromIndex: any) {
   return str.indexOf(substring, fromIndex) !== -1;
 }
 
 /**
  * Truncate string at full words.
  */
-function crop(str, maxChars, append) {
+export function crop(str: string, maxChars: number, append: string | any[]) {
   return truncate(str, maxChars, append, true);
 }
 
 /**
  * Escape RegExp string chars.
  */
-function escapeRegExp(str) {
+export function escapeRegExp(str: string) {
   var ESCAPE_CHARS = /[\\.+*?\^$\[\](){}\/'#]/g;
   return str.replace(ESCAPE_CHARS, "\\$&");
 }
@@ -184,7 +182,7 @@ function escapeRegExp(str) {
 /**
  * Escapes a string for insertion into HTML.
  */
-function escapeHtml(str) {
+export function escapeHtml(str: string) {
   str = str
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
@@ -198,7 +196,7 @@ function escapeHtml(str) {
 /**
  * Unescapes HTML special chars
  */
-function unescapeHtml(str) {
+export function unescapeHtml(str: string) {
   str = str
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
@@ -211,7 +209,7 @@ function unescapeHtml(str) {
 /**
  * Escape string into unicode sequences
  */
-function escapeUnicode(str, shouldEscapePrintable) {
+export function escapeUnicode(str: string, shouldEscapePrintable: any) {
   return str.replace(/[\s\S]/g, function (ch) {
     // skip printable ASCII chars if we should not escape them
     if (!shouldEscapePrintable && /[\x20-\x7E]/.test(ch)) {
@@ -226,14 +224,14 @@ function escapeUnicode(str, shouldEscapePrintable) {
 /**
  * Remove HTML tags from string.
  */
-function stripHtmlTags(str) {
+export function stripHtmlTags(str: string) {
   return str.replace(/<[^>]*>/g, "");
 }
 
 /**
  * Remove non-printable ASCII chars
  */
-function removeNonASCII(str) {
+export function removeNonASCII(str: string) {
   // Matches non-printable ASCII chars -
   // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
   return str.replace(/[^\x20-\x7E]/g, "");
@@ -242,10 +240,14 @@ function removeNonASCII(str) {
 /**
  * String interpolation
  */
-function interpolate(template, replacements, syntax) {
+export function interpolate(
+  template: string,
+  replacements: { [x: string]: any },
+  syntax: any
+) {
   var stache = /\{\{(\w+)\}\}/g; //mustache-like
 
-  var replaceFn = function (match, prop) {
+  var replaceFn = function (match: any, prop: string) {
     return prop in replacements ? replacements[prop] : "";
   };
 
@@ -255,7 +257,11 @@ function interpolate(template, replacements, syntax) {
 /**
  * Pad string with `char` if its' length is smaller than `minLen`
  */
-function rpad(str, minLen, ch) {
+export function rpad(
+  str: string | any[],
+  minLen: number,
+  ch: string | undefined
+) {
   ch = ch || " ";
   return str.length < minLen ? str + repeat(ch, minLen - str.length) : str;
 }
@@ -263,7 +269,11 @@ function rpad(str, minLen, ch) {
 /**
  * Pad string with `char` if its' length is smaller than `minLen`
  */
-function lpad(str, minLen, ch) {
+export function lpad(
+  str: string | any[],
+  minLen: number,
+  ch: string | undefined
+) {
   ch = ch || " ";
 
   return str.length < minLen ? repeat(ch, minLen - str.length) + str : str;
@@ -272,14 +282,19 @@ function lpad(str, minLen, ch) {
 /**
  * Repeat string n times
  */
-function repeat(str, n) {
+export function repeat(str: string | undefined, n: number) {
   return new Array(n + 1).join(str);
 }
 
 /**
  * Limit number of chars.
  */
-function truncate(str, maxChars, append, onlyFullWords) {
+export function truncate(
+  str: string,
+  maxChars: number,
+  append: string | any[],
+  onlyFullWords: boolean
+) {
   append = append || "...";
   maxChars = onlyFullWords ? maxChars + 1 : maxChars;
 
@@ -324,7 +339,7 @@ var WHITE_SPACES = [
 /**
  * Remove chars from beginning of string.
  */
-function ltrim(str, chars) {
+export function ltrim(str: string, chars: string | any[]) {
   chars = chars || WHITE_SPACES;
 
   var start = 0,
@@ -354,7 +369,7 @@ function ltrim(str, chars) {
 /**
  * Remove chars from end of string.
  */
-function rtrim(str, chars) {
+export function rtrim(str: string, chars: string | any[]) {
   chars = chars || WHITE_SPACES;
 
   var end = str.length - 1,
@@ -383,7 +398,7 @@ function rtrim(str, chars) {
 /**
  * Remove white-spaces from beginning and end of string.
  */
-function trim(str, chars) {
+export function trim(str: any, chars?: string[] | undefined) {
   chars = chars || WHITE_SPACES;
   return ltrim(rtrim(str, chars), chars);
 }
@@ -392,40 +407,6 @@ function trim(str, chars) {
  * Capture all capital letters following a word boundary (in case the
  * input is in all caps)
  */
-function abbreviate(str) {
+export function abbreviate(str: { match: (arg0: RegExp) => any[] }) {
   return str.match(/\b([A-Z])/g).join("");
 }
-
-module.exports = {
-  lowerCase,
-  upperCase,
-  camelCase,
-  unCamelCase,
-  properCase,
-  pascalCase,
-  sentenceCase,
-  slugify,
-  hyphenate,
-  unhyphenate,
-  underscore,
-  removeNonWord,
-  normalizeLineBreaks,
-  replaceAccents,
-  contains,
-  crop,
-  escapeRegExp,
-  escapeHtml,
-  unescapeHtml,
-  escapeUnicode,
-  stripHtmlTags,
-  removeNonASCII,
-  interpolate,
-  rpad,
-  lpad,
-  repeat,
-  truncate,
-  ltrim,
-  rtrim,
-  trim,
-  abbreviate,
-};

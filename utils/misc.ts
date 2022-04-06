@@ -1,21 +1,27 @@
-"use strict";
+import { TransactionResponse } from "@ethersproject/abstract-provider";
+import { getAddress } from "@ethersproject/address";
+import { BigNumber } from "ethers";
+import { ethers } from "hardhat";
 
-const { ethers } = require("hardhat");
-const { getAddress } = require("@ethersproject/address");
-const { toGwei, fromWei } = require("./format");
+import { fromWei, toGwei } from "./format";
 
-const delay = (ms) => new Promise((res) => setTimeout(res, ms));
-async function delayLog(ms) {
+export async function sleep(ms: number): Promise<void> {
+  return await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+export async function delayLog(ms: number) {
   console.log(`waiting for ${ms / 1000}s...`);
-  await delay(ms);
+  await sleep(ms);
 }
 
 /**
  * Get ether balance of address provided.
  * @param {*} address valid eth address.
- * @returns null or Balance in BN.
+ * @returns undefined or Balance in BN.
  */
-async function etherBalance(address) {
+export async function etherBalance(
+  address: string
+): Promise<BigNumber | undefined> {
   if (!isAddress(address)) return;
   return await ethers.provider.getBalance(address);
 }
@@ -24,7 +30,7 @@ async function etherBalance(address) {
  * returns the checksummed address if the address is valid,
  * otherwise returns false
  */
-function isAddress(value) {
+export function isAddress(value: string): string | false {
   try {
     return getAddress(value);
   } catch {
@@ -38,9 +44,12 @@ function isAddress(value) {
  * or other transaction executed
  * @returns null or information string
  */
-async function getExtraGasInfo(tx) {
-  if (!tx) return;
+export async function getExtraGasInfo(
+  tx: TransactionResponse
+): Promise<string | null> {
+  if (!tx) return null;
   const gasPrice = tx.gasPrice;
+  if (gasPrice === undefined) return null;
   const gasUsed = tx.gasLimit.mul(gasPrice);
   const txReceipt = await tx.wait();
   const gas = txReceipt.gasUsed;
@@ -52,11 +61,3 @@ async function getExtraGasInfo(tx) {
 
   return extraGasInfo;
 }
-
-module.exports = {
-  delay,
-  delayLog,
-  etherBalance,
-  isAddress,
-  getExtraGasInfo,
-};

@@ -1,10 +1,9 @@
-"use strict";
+import { ethers } from "hardhat";
 
-const { ethers } = require("hardhat");
-const { toWei } = require("../utils/format");
-const { deployContract } = require("../utils/contracts");
-const { verifyContract } = require("../utils/verify");
-const { getExtraGasInfo } = require("../utils/misc");
+import { deployContract } from "../utils/contracts";
+import { toWei } from "../utils/format";
+import { getExtraGasInfo } from "../utils/misc";
+import { verifyContract } from "../utils/verify";
 
 async function main() {
   const { chainId } = await ethers.provider.getNetwork();

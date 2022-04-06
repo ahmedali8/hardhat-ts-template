@@ -1,12 +1,22 @@
-"use strict";
+import { TransactionResponse } from "@ethersproject/abstract-provider";
+import { run } from "hardhat";
 
-const { run } = require("hardhat");
-const { delayLog } = require("./misc");
+import { delayLog } from "./misc";
 
-async function waitForConfirmations(tx, waitConfirmations = 5) {
+export async function waitForConfirmations(
+  tx: TransactionResponse,
+  waitConfirmations = 5
+) {
   if (!tx) return;
   console.log(`waiting for ${waitConfirmations} confirmations ...`);
   await tx.wait(waitConfirmations);
+}
+
+interface VerifyContract {
+  contractName: string;
+  contractAddress: string;
+  args: any[];
+  delay?: number;
 }
 
 /**
@@ -16,12 +26,12 @@ async function waitForConfirmations(tx, waitConfirmations = 5) {
  * @param {*} args constructor args in array
  * @param delay delay time in ms
  */
-async function verifyContract({
+export async function verifyContract({
   contractName,
   contractAddress,
   args = [],
   delay = 60_000,
-}) {
+}: VerifyContract): Promise<void> {
   await delayLog(delay);
 
   await run("verify:verify", {
@@ -30,8 +40,3 @@ async function verifyContract({
     contract: `contracts/${contractName}.sol:${contractName}`,
   });
 }
-
-module.exports = {
-  waitForConfirmations,
-  verifyContract,
-};

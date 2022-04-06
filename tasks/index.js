@@ -1,2 +1,0 @@
-require("./accounts");
-require("./flatfile");

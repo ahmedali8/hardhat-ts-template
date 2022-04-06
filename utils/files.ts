@@ -1,13 +1,12 @@
-"use strict";
-const path = require("path");
-const fs = require("fs-extra");
+import fs, { PathLike } from "fs-extra";
+import path from "path";
 
 const existsAsync = fs.pathExists;
 const makeDirectoryAsync = fs.mkdir;
 const readFileAsync = fs.readFile;
 const writeFileAsync = fs.writeFile;
 
-const ensureDirectoryExists = async (directory) => {
+const ensureDirectoryExists = async (directory: PathLike): Promise<void> => {
   try {
     await makeDirectoryAsync(directory, { recursive: true });
   } catch (err) {
@@ -15,31 +14,27 @@ const ensureDirectoryExists = async (directory) => {
   }
 };
 
-const ensureDirectory = async (directory) => {
+export const ensureDirectory = async (directory: PathLike): Promise<void> => {
   ensureDirectoryExists(directory);
 };
 
-const writeFile = async (filePath, data) => {
+export const writeFile = async (filePath: string, data: any): Promise<void> => {
   await ensureDirectoryExists(path.dirname(filePath));
   await writeFileAsync(filePath, data);
 };
 
-const writeJSONFile = async (filePath, data) => {
+export const writeJSONFile = async (
+  filePath: string,
+  data: any
+): Promise<void> => {
   await writeFile(filePath, JSON.stringify(data, null, 2));
 };
 
-const parseFile = async (filePath) => {
+export const parseFile = async (filePath: string): Promise<any> => {
   if (await existsAsync(filePath)) {
     const contents = await readFileAsync(filePath);
     return JSON.parse(contents.toString());
   }
 
   return null;
-};
-
-module.exports = {
-  ensureDirectory,
-  writeFile,
-  writeJSONFile,
-  parseFile,
 };

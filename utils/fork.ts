@@ -1,26 +1,23 @@
-const { network } = require("hardhat");
+import { ethers, network } from "hardhat";
 
-async function resetHardhat() {
+export async function resetHardhat() {
   await network.provider.request({
     method: "hardhat_reset",
     params: [],
   });
 }
 
-async function impersonateAccounts(accountsToImpersonate = []) {
+export async function impersonateAccounts(
+  accountsToImpersonate: string[] = []
+) {
   await network.provider.request({
     method: "hardhat_impersonateAccount",
     params: [...accountsToImpersonate],
   });
 }
-async function getImpersonatingSigner(accountToImpersonate = "") {
+
+export async function getImpersonatingSigner(accountToImpersonate: string) {
   await impersonateAccounts([accountToImpersonate]);
   const signer = await ethers.getSigner(accountToImpersonate);
   return signer;
 }
-
-module.exports = {
-  resetHardhat,
-  impersonateAccounts,
-  getImpersonatingSigner,
-};

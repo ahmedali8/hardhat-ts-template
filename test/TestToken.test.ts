@@ -1,15 +1,26 @@
-const { expect } = require("chai");
-const { toWei } = require("../utils/index.js");
-const { deployContract } = require("../utils/contracts");
-const { ZERO_ADDRESS } = require("../utils/constants");
+import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { expect } from "chai";
+import { Contract } from "ethers";
+import { ethers } from "hardhat";
+
+import { ZERO_ADDRESS } from "../utils/constants";
+import { deployContract } from "../utils/contracts";
+import { toWei } from "../utils/format";
 
 describe("TestingContract Unit tests", () => {
-  let token;
+  let token: Contract;
+  let owner: SignerWithAddress;
+  let user: SignerWithAddress;
+  let accounts: SignerWithAddress[];
 
   beforeEach(async () => {
     [owner, user, ...accounts] = await ethers.getSigners();
     const args = ["TEST_TOKEN", "TST", toWei("1000000"), owner.address];
-    token = await deployContract(owner, "TestingContract", args);
+    token = await deployContract({
+      signer: owner,
+      contractName: "TestingContract",
+      args: args,
+    });
   });
 
   describe("#constructor", async () => {

@@ -1,8 +1,9 @@
-const { task } = require("hardhat/config");
-const path = require("path");
-const { execSync } = require("child_process");
-const { pascalCase } = require("../utils/string.js");
-const { ensureDirectory, writeFile } = require("../utils/files");
+import { execSync } from "child_process";
+import { task } from "hardhat/config";
+import path from "path";
+
+import { ensureDirectory, writeFile } from "../utils/files";
+import { pascalCase } from "../utils/string";
 
 // e.g. npx hardhat flatfile --contract TestingContract
 task("flatfile", "Creates a flattened sol file")
@@ -16,11 +17,11 @@ task("flatfile", "Creates a flattened sol file")
     console.log(output);
 
     const filename = pascalCase(contract);
-    let outputFileName = path.join(
+    const outputFileName = path.join(
       process.cwd(),
       `./flattened/${filename}.txt`
     );
-    ensureDirectory(path.dirname(outputFileName));
+    await ensureDirectory(path.dirname(outputFileName));
     await writeFile(outputFileName, output);
 
     console.log(`Flattened file export done!`);
