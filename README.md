@@ -1,4 +1,4 @@
-# Hardhat Starterkit Template (JavaScript)
+# Hardhat Starterkit Template (TypeScript)
 
 #### Inspiration - [Solidity Template](https://github.com/paulrberg/solidity-template)
 
@@ -171,7 +171,7 @@ Set etherscan/bscscan/polygonscan api key in `.env` file or using command, refer
 $ ETHERSCAN_API_KEY="your_api_key"
 ```
 
-If you don't already have an api key, use either of one [etherscan](https://etherscan.io/), [bscscan](https://bscscan.com/), [polygonscan](https://polygonscan.com/) according to the network you want. 
+If you don't already have an api key, use either of one [etherscan](https://etherscan.io/), [bscscan](https://bscscan.com/), [polygonscan](https://polygonscan.com/) according to the network you want.
 
 Example deploy script with `verifyContract` function is [here](https://github.com/ahmedali8/hardhat-starterkit/blob/main/scripts/deploy.js)
 
