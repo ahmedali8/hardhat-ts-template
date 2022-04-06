@@ -1,6 +1,6 @@
 import { TransactionResponse } from "@ethersproject/abstract-provider";
 import { getAddress } from "@ethersproject/address";
-import { BigNumber } from "ethers";
+import { BigNumber, Signer } from "ethers";
 import { ethers } from "hardhat";
 
 import { fromWei, toGwei } from "./format";
@@ -60,4 +60,18 @@ export async function getExtraGasInfo(
   txHash ${tx.hash}`;
 
   return extraGasInfo;
+}
+
+export async function send(
+  signer: Signer,
+  txParams: any
+): Promise<TransactionResponse> {
+  return await signer.sendTransaction(txParams);
+  //    , (error, transactionHash) => {
+  //     if (error) {
+  //       debug(`Error: ${error}`);
+  //     }
+  //     debug(`transactionHash: ${transactionHash}`);
+  //     // checkForReceipt(2, params, transactionHash, resolve)
+  //   });
 }
