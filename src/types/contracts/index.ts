@@ -6,4 +6,3 @@
 import type * as testingTokenSol from "./TestingToken.sol";
 
 export type { testingTokenSol };
-export type { TestingContract } from "./TestingContract";

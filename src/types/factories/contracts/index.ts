@@ -2,4 +2,3 @@
 /* tslint:disable */
 /* eslint-disable */
 export * as testingTokenSol from "./TestingToken.sol";
-export { TestingContract__factory } from "./TestingContract__factory";
