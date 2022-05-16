@@ -56,7 +56,7 @@ export async function getExtraGasInfo(
 
   const extraGasInfo = `${toGwei(gasPrice)} gwei, ${fromWei(
     gasUsed
-  )} ETH, ${gas} gas, 
+  )} ETH, ${gas} gas,
   txHash ${tx.hash}`;
 
   return extraGasInfo;
@@ -74,4 +74,9 @@ export async function send(
   //     debug(`transactionHash: ${transactionHash}`);
   //     // checkForReceipt(2, params, transactionHash, resolve)
   //   });
+}
+
+// add 20%
+export function calculateGasMargin(value: BigNumber) {
+  return value.mul(BigNumber.from(10000 + 2000)).div(BigNumber.from(10000));
 }

@@ -1,29 +1,72 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
+import { getContractFactory } from "@nomiclabs/hardhat-ethers/types";
 import chalk from "chalk";
 import { Contract, ContractFactory, Signer } from "ethers";
 import { ethers } from "hardhat";
-import { Libraries } from "hardhat/types";
 
 import { writeFile } from "./files";
 import { abiEncodeArgs, fromWei } from "./format";
 import { etherBalance, getExtraGasInfo } from "./misc";
-
-const { getContractAt, getContractFactory } = ethers;
 
 export async function getContractIns(
   contractNameOrAbi: string | any[],
   address: string,
   signer: Signer
 ): Promise<Contract> {
-  return await getContractAt(contractNameOrAbi, address, signer);
+  return await ethers.getContractAt(contractNameOrAbi, address, signer);
+}
+
+export async function preDeploy({
+  signerAddress,
+  contractName,
+}: {
+  signerAddress: string;
+  contractName: string;
+}): Promise<void> {
+  const { chainId, name } = await ethers.provider.getNetwork();
+  const ethBalance = await etherBalance(signerAddress);
+
+  console.log(
+    ` 🛰  Deploying: ${chalk.cyan(
+      contractName
+    )} to Network: ${name} & ChainId: ${chainId}`
+  );
+  console.log(
+    ` 🎭 Deployer: ${chalk.cyan(signerAddress)}, Balance: ${chalk.grey(
+      fromWei(ethBalance ?? 0)
+    )} ETH`
+  );
+}
+
+export async function postDeploy({
+  contractName,
+  contract,
+}: {
+  contractName: string;
+  contract: Contract;
+}) {
+  await contract.deployed();
+
+  let extraGasInfo = "";
+  if (contract && contract.deployTransaction) {
+    extraGasInfo = (await getExtraGasInfo(contract.deployTransaction)) ?? "";
+  }
+
+  console.log(
+    " 📄",
+    chalk.cyan(contractName),
+    "deployed to:",
+    chalk.magenta(contract.address)
+  );
+  console.log(" ⛽", chalk.grey(extraGasInfo));
+  return contract;
 }
 
 interface DeployContract {
   signer: SignerWithAddress;
   contractName: string;
-  args: Array<any>;
-  overrides?: {};
-  libraries?: Libraries | {};
+  args?: Array<any>;
+  overrides?: Record<string, unknown>;
 }
 
 export async function deployContract({
@@ -31,7 +74,6 @@ export async function deployContract({
   contractName,
   args = [],
   overrides,
-  libraries,
 }: DeployContract): Promise<Contract> {
   const { chainId, name } = await ethers.provider.getNetwork();
   const ethBalance = await etherBalance(signer.address);
@@ -48,10 +90,7 @@ export async function deployContract({
   );
 
   const contractArtifacts: ContractFactory = await getContractFactory(
-    contractName,
-    {
-      libraries: libraries,
-    }
+    contractName
   );
   const contract = await contractArtifacts
     .connect(signer)

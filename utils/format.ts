@@ -1,11 +1,10 @@
+import { defaultAbiCoder } from "@ethersproject/abi";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { formatUnits, parseUnits } from "@ethersproject/units";
 import { Contract } from "ethers";
-import { ethers } from "hardhat";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const R = require("ramda");
-const { utils } = ethers;
 
 /**
  * Return the `labelValue` converted to string as Billions, Millions, Thousands etc.
@@ -104,11 +103,7 @@ export function toGwei(gasPrice: BigNumberish): string {
  * @param decimals decimal value or BigNumberish.
  * @return BigNumber value or undefined.
  */
-export function toWei(
-  value: string,
-  decimals: number = 18
-): BigNumber | undefined {
-  if (!value) return undefined;
+export function toWei(value: string, decimals: number = 18): BigNumber {
   return parseUnits(value, decimals);
 }
 
@@ -199,9 +194,17 @@ export const abiEncodeArgs = (
   ) {
     return "";
   }
-  const encoded = utils.defaultAbiCoder.encode(
+  const encoded = defaultAbiCoder.encode(
     contract.interface.deploy.inputs,
     contractArgs
   );
   return encoded;
+};
+
+export const randomInteger = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+export const randomNumber = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
 };
