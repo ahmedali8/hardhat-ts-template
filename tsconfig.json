@@ -20,6 +20,7 @@
   "files": ["./hardhat.config.ts"],
   "include": [
     "src/**/*",
+    "deploy/**/*",
     "scripts/**/*",
     "tasks/**/*",
     "test/**/*",

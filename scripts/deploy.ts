@@ -9,6 +9,8 @@ async function main() {
   const { chainId } = await ethers.provider.getNetwork();
   const [owner] = await ethers.getSigners();
 
+  const CONTRACT_NAME = "TestingContract";
+
   const args = [
     "testing new created token",
     "TCT",
@@ -17,7 +19,7 @@ async function main() {
   ];
   const contract = await deployContract({
     signer: owner,
-    contractName: "TestingContract",
+    contractName: CONTRACT_NAME,
     args: args,
   });
 
@@ -45,7 +47,7 @@ async function main() {
   try {
     if (chainId != 31337 && chainId != 1337) {
       await verifyContract({
-        contractName: "TestingContract",
+        contractName: CONTRACT_NAME,
         contractAddress: contract.address,
         args: args,
       });

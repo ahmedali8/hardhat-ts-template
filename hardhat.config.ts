@@ -3,6 +3,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import { config as dotenvConfig } from "dotenv";
 import "hardhat-contract-sizer";
+import "hardhat-deploy";
 import "hardhat-docgen";
 import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
@@ -169,6 +170,11 @@ const config: HardhatUserConfig = {
     excludeContracts: [],
     src: "./contracts",
   },
+  namedAccounts: {
+    deployer: {
+      default: 0, // here this will by default take the first account as deployer
+    },
+  },
   networks: {
     // LOCAL
     hardhat: { chainId: 31337 },
@@ -196,6 +202,7 @@ const config: HardhatUserConfig = {
     cache: "./generated/cache",
     sources: "./contracts",
     tests: "./test",
+    deployments: "./generated/deployments",
   },
   solidity: {
     compilers: [
