@@ -20,7 +20,7 @@ task("flatfile", "Creates a flattened sol file")
     const filename = pascalCase(contract);
     const outputFileName = path.join(
       process.cwd(),
-      `./flattened/${filename}.txt`
+      `./generated/flattened/${filename}.txt`
     );
     await ensureDirectory(path.dirname(outputFileName));
     await writeFile(outputFileName, output);

@@ -17,6 +17,7 @@
 **/abi_exporter
 **/flattened
 **/docs
+**/generated
 
 # files
 *.env

@@ -139,7 +139,7 @@ const config: HardhatUserConfig = {
   },
   defaultNetwork: "hardhat",
   docgen: {
-    path: "./docs",
+    path: "./generated/docs",
     clear: true,
     runOnCompile: process.env.DOC_GEN ? true : false,
   },
@@ -192,8 +192,8 @@ const config: HardhatUserConfig = {
     polygonMumbai: getChainConfig("polygonMumbai"),
   },
   paths: {
-    artifacts: "./artifacts",
-    cache: "./cache",
+    artifacts: "./generated/artifacts",
+    cache: "./generated/cache",
     sources: "./contracts",
     tests: "./test",
   },
