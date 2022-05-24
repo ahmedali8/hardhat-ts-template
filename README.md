@@ -88,7 +88,11 @@ $ yarn coverage
 See the gas usage per unit test and average gas per method call:
 
 ```sh
-$ REPORT_GAS=true yarn test
+$ REPORT_GAS=true yarn test:hh
+
+or 
+
+$ yarn test:hh:gr
 ```
 
 Optional:
@@ -100,7 +104,7 @@ Optional:
 ```sh
 $ GAS_PRICE=20
 $ COIN_MARKET_CAP_API_KEY="your_api_key"
-$ yarn test
+$ yarn test:hh
 ```
 
 ### Clean
@@ -200,31 +204,31 @@ This template repository also includes the [Foundry](https://github.com/foundry-
 ### Dependencies
 
 ```bash
-forge update
+$ forge update
 ```
 
 ### Compilation
 
 ```bash
-yarn build
+$ yarn build
 
 or
 
-forge build
+$ forge build
 ```
 
 ### Testing
 
 ```bash
-yarn test:forge
+$ yarn test:forge
 
 or
 
-yarn test:forge:gr
+$ yarn test:forge:gr
 
 or
 
-forge test -vvv
+$ forge test -vvv
 ```
 
 ## Syntax Highlighting
