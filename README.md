@@ -1,6 +1,6 @@
-# Hardhat Starterkit Template (TypeScript)
+# Hardhat and Foundry Starterkit Template (TypeScript)
 
-#### Inspiration - [Solidity Template](https://github.com/paulrberg/solidity-template)
+#### Inspiration - [Solidity Template](https://github.com/paulrberg/solidity-template) and [Foundry Template](https://github.com/pcaversaccio/hardhat-project-template-ts)
 
 - [Hardhat](https://github.com/nomiclabs/hardhat): compile and run the smart contracts on a local development network
 - [Ethers](https://github.com/ethers-io/ethers.js/): Ethereum library and wallet implementation
@@ -62,7 +62,7 @@ $ yarn lint:sol
 Run the Mocha tests:
 
 ```sh
-$ yarn test
+$ yarn test:hh
 ```
 
 ### Forking mainnet
@@ -190,6 +190,42 @@ $ yarn flatfile:contract CONTRACT_NAME
 ```
 
 where, `CONTRACT_NAME` can be for example `TestingContract`
+
+## Foundry
+
+This template repository also includes the [Foundry](https://github.com/foundry-rs/foundry) toolkit.
+
+> If you need help getting started with Foundry, I recommend reading the [📖 Foundry Book](https://book.getfoundry.sh).
+
+### Dependencies
+
+```bash
+forge update
+```
+
+### Compilation
+
+```bash
+yarn build
+
+or
+
+forge build
+```
+
+### Testing
+
+```bash
+yarn test:forge
+
+or
+
+yarn test:forge:gr
+
+or
+
+forge test -vvv
+```
 
 ## Syntax Highlighting
 
