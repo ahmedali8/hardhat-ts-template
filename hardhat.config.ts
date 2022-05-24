@@ -182,6 +182,9 @@ const config: HardhatUserConfig = {
       chainId: networks["ganache"].chainId,
       url: networks["ganache"].url,
     },
+    "truffle-dashboard": {
+      url: "http://localhost:24012/rpc",
+    },
 
     // ETHEREUM
     mainnet: getChainConfig("mainnet"),
@@ -207,7 +210,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.13",
+        version: "0.8.14",
         settings: {
           metadata: {
             // Not including the metadata hash

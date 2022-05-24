@@ -1,6 +1,7 @@
 import { ethers } from "hardhat";
 
-import { deployContract } from "../utils/contracts";
+import { Token, Token__factory } from "../src/types";
+import { postDeploy, preDeploy } from "../utils/contracts";
 import { toWei } from "../utils/format";
 import { getExtraGasInfo } from "../utils/misc";
 import { verifyContract } from "../utils/verify";
@@ -10,18 +11,20 @@ async function main() {
   const [owner] = await ethers.getSigners();
 
   const CONTRACT_NAME = "TestingContract";
-
-  const args = [
-    "testing new created token",
+  await preDeploy({
+    signerAddress: owner.address,
+    contractName: CONTRACT_NAME,
+  });
+  const TokenContract: Token__factory = await ethers.getContractFactory(
+    CONTRACT_NAME
+  );
+  const token: Token = await TokenContract.deploy(
+    "TokenName",
     "TCT",
     toWei("6000000"),
-    owner.address,
-  ];
-  const contract = await deployContract({
-    signer: owner,
-    contractName: CONTRACT_NAME,
-    args: args,
-  });
+    owner.address
+  );
+  await postDeploy({ contractName: CONTRACT_NAME, contract: token });
 
   /*
   // If you want to send some ETH to a contract on deploy (make your constructor payable!)
@@ -48,8 +51,8 @@ async function main() {
     if (chainId != 31337 && chainId != 1337) {
       await verifyContract({
         contractName: CONTRACT_NAME,
-        contractAddress: contract.address,
-        args: args,
+        contractAddress: token.address,
+        args: [],
       });
     }
   } catch (error) {
