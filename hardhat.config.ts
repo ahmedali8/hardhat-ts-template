@@ -182,6 +182,9 @@ const config: HardhatUserConfig = {
       chainId: networks["ganache"].chainId,
       url: networks["ganache"].url,
     },
+    "truffle-dashboard": {
+      url: "http://localhost:24012/rpc",
+    },
 
     // ETHEREUM
     mainnet: getChainConfig("mainnet"),
@@ -198,8 +201,8 @@ const config: HardhatUserConfig = {
     polygonMumbai: getChainConfig("polygonMumbai"),
   },
   paths: {
-    artifacts: "./generated/artifacts",
-    cache: "./generated/cache",
+    artifacts: "./generated/artifacts/hardhat",
+    cache: "./generated/cache/hardhat",
     sources: "./contracts",
     tests: "./test",
     deployments: "./generated/deployments",
@@ -207,7 +210,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.13",
+        version: "0.8.14",
         settings: {
           metadata: {
             // Not including the metadata hash
