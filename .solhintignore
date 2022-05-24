@@ -1,3 +1,4 @@
 # directories
-**/artifacts
+**/generated
 **/node_modules
+**/lib
