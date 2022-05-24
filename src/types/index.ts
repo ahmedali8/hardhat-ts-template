@@ -16,5 +16,5 @@ export type { IERC20Metadata } from "./@openzeppelin/contracts/token/ERC20/exten
 export { IERC20Metadata__factory } from "./factories/@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata__factory";
 export type { IERC20 } from "./@openzeppelin/contracts/token/ERC20/IERC20";
 export { IERC20__factory } from "./factories/@openzeppelin/contracts/token/ERC20/IERC20__factory";
-export type { TestingContract } from "./contracts/TestingToken.sol/TestingContract";
-export { TestingContract__factory } from "./factories/contracts/TestingToken.sol/TestingContract__factory";
+export type { Token } from "./contracts/Token";
+export { Token__factory } from "./factories/contracts/Token__factory";

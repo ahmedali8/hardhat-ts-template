@@ -8,7 +8,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
-} from "../../common";
+} from "../common";
 import type {
   FunctionFragment,
   Result,
@@ -28,7 +28,7 @@ import type {
   utils,
 } from "ethers";
 
-export interface TestingContractInterface extends utils.Interface {
+export interface TokenInterface extends utils.Interface {
   functions: {
     "allowance(address,address)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
@@ -155,12 +155,12 @@ export type TransferEvent = TypedEvent<
 
 export type TransferEventFilter = TypedEventFilter<TransferEvent>;
 
-export interface TestingContract extends BaseContract {
+export interface Token extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: TestingContractInterface;
+  interface: TokenInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
