@@ -10,7 +10,7 @@ async function main() {
   const { chainId } = await ethers.provider.getNetwork();
   const [owner] = await ethers.getSigners();
 
-  const CONTRACT_NAME = "TestingContract";
+  const CONTRACT_NAME = "Token";
   await preDeploy({
     signerAddress: owner.address,
     contractName: CONTRACT_NAME,
