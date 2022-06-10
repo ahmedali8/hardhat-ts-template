@@ -3,6 +3,7 @@
 /* tslint:disable */
 
 /* eslint-disable */
+import type { PromiseOrValue } from "../../common";
 import type { Token, TokenInterface } from "../../contracts/Token";
 import type { Provider, TransactionRequest } from "@ethersproject/providers";
 import {
@@ -352,11 +353,11 @@ export class Token__factory extends ContractFactory {
   }
 
   override deploy(
-    _name: string,
-    _symbol: string,
-    _totalSupply: BigNumberish,
-    _beneficiary: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _name: PromiseOrValue<string>,
+    _symbol: PromiseOrValue<string>,
+    _totalSupply: PromiseOrValue<BigNumberish>,
+    _beneficiary: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<Token> {
     return super.deploy(
       _name,
@@ -367,11 +368,11 @@ export class Token__factory extends ContractFactory {
     ) as Promise<Token>;
   }
   override getDeployTransaction(
-    _name: string,
-    _symbol: string,
-    _totalSupply: BigNumberish,
-    _beneficiary: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _name: PromiseOrValue<string>,
+    _symbol: PromiseOrValue<string>,
+    _totalSupply: PromiseOrValue<BigNumberish>,
+    _beneficiary: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): TransactionRequest {
     return super.getDeployTransaction(
       _name,
