@@ -1,10 +1,5 @@
-import { defaultAbiCoder } from "@ethersproject/abi";
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
 import { formatUnits, parseUnits } from "@ethersproject/units";
-import { Contract } from "ethers";
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const R = require("ramda");
 
 /**
  * Return the `labelValue` converted to string as Billions, Millions, Thousands etc.
@@ -114,13 +109,9 @@ export function toWei(value: string, decimals: number = 18): BigNumber {
  *
  * @param value BigNumberish value to be converted, preferred is BigNumber.
  * @param decimals decimal value or BigNumberish.
- * @return string value or undefined.
+ * @return string value.
  */
-export function fromWei(
-  value: BigNumberish,
-  decimals: number = 18
-): string | undefined {
-  if (!value) return undefined;
+export function fromWei(value: BigNumberish, decimals: number = 18): string {
   return formatUnits(value, decimals);
 }
 
@@ -173,33 +164,6 @@ export function fromWeiToFixedNum(
 export function calculatePercentage(bn: BigNumber, percent: number): BigNumber {
   return bn.mul(percent).div("100");
 }
-
-/**
- * abi encodes contract arguments
- * useful when you want to manually verify the contracts
- * for example, on Etherscan
- * @param {*} contract contract obj
- * @param {*} contractArgs contract arguments
- * @returns https://docs.ethers.io/v5/api/utils/abi/coder/#AbiCoder
- */
-export const abiEncodeArgs = (
-  contract: Contract,
-  contractArgs: any[]
-): string => {
-  // not writing abi encoded args if this does not pass
-  if (
-    !contractArgs ||
-    !contract ||
-    !R.hasPath(["interface", "deploy"], contract)
-  ) {
-    return "";
-  }
-  const encoded = defaultAbiCoder.encode(
-    contract.interface.deploy.inputs,
-    contractArgs
-  );
-  return encoded;
-};
 
 export const randomInteger = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
