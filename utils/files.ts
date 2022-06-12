@@ -6,16 +6,14 @@ const makeDirectoryAsync = fs.mkdir;
 const readFileAsync = fs.readFile;
 const writeFileAsync = fs.writeFile;
 
-const ensureDirectoryExists = async (directory: PathLike): Promise<void> => {
+export const ensureDirectoryExists = async (
+  directory: PathLike
+): Promise<void> => {
   try {
     await makeDirectoryAsync(directory, { recursive: true });
   } catch (err) {
     console.log(err);
   }
-};
-
-export const ensureDirectory = async (directory: PathLike): Promise<void> => {
-  ensureDirectoryExists(directory);
 };
 
 export const writeFile = async (filePath: string, data: any): Promise<void> => {

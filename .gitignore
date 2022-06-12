@@ -65,3 +65,4 @@ tenderly.yaml
 flattened.sol
 
 # Miscellaneous files
+**/storageLayout
