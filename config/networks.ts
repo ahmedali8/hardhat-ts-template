@@ -38,15 +38,15 @@ export enum NetworkName {
   POLYGON_MUMBAI = "polygon-mumbai",
 
   // OPTIMISM
-  OPTIMISTIC_MAINNET = "optimism-mainnet",
-  OPTIMISTIC_KOVAN = "optimism-kovan",
+  OPTIMISM_MAINNET = "optimism-mainnet",
+  OPTIMISM_KOVAN = "optimism-kovan",
 
   // ARBITRUM
   ARBITRUM_MAINNET = "arbitrum-mainnet",
   ARBITRUM_RINKEBY = "arbitrum-rinkeby",
 
   // AVALANCHE
-  AVALANCHE_MAINNET = "avalanche",
+  AVALANCHE_MAINNET = "avalanche-mainnet",
   FUJI_AVALANCHE = "fuji-avalance",
 
   // FANTOM
@@ -103,11 +103,11 @@ export const NETWORKS: { readonly [key in NetworkName]: Network } = {
   },
 
   // OPTIMISM
-  [NetworkName.OPTIMISTIC_MAINNET]: {
+  [NetworkName.OPTIMISM_MAINNET]: {
     chainId: 10,
     url: infuraUrl("optimism-mainnet"),
   },
-  [NetworkName.OPTIMISTIC_KOVAN]: {
+  [NetworkName.OPTIMISM_KOVAN]: {
     chainId: 69,
     url: infuraUrl("optimism-kovan"),
   },

@@ -22,8 +22,8 @@ export const API_KEYS: string | Record<string, string> | undefined = {
   [NetworkName.POLYGON_MUMBAI]: process.env.POLYGONSCAN_API_KEY || "",
 
   // OPTIMISM
-  [NetworkName.OPTIMISTIC_MAINNET]: process.env.OPTIMISM_API_KEY || "",
-  [NetworkName.OPTIMISTIC_KOVAN]: process.env.OPTIMISM_API_KEY || "",
+  [NetworkName.OPTIMISM_MAINNET]: process.env.OPTIMISM_API_KEY || "",
+  [NetworkName.OPTIMISM_KOVAN]: process.env.OPTIMISM_API_KEY || "",
 
   // ARBITRUM
   [NetworkName.ARBITRUM_MAINNET]: process.env.ARBISCAN_API_KEY || "",
