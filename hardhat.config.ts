@@ -6,6 +6,10 @@ import { config as dotenvConfig } from "dotenv";
 import "hardhat-contract-sizer";
 import "hardhat-deploy";
 import "hardhat-gas-reporter";
+import { removeConsoleLog } from "hardhat-preprocessor";
+import "hardhat-storage-layout";
+import "hardhat-test-utils";
+import "hardhat-tracer";
 import { HardhatUserConfig } from "hardhat/config";
 import {
   HttpNetworkAccountsUserConfig,
@@ -116,6 +120,11 @@ const config: HardhatUserConfig = {
     tests: "./test",
     deployments: "./generated/deployments",
   },
+  preprocess: {
+    eachLine: removeConsoleLog(
+      (hre) => hre.network.name !== "hardhat" && hre.network.name !== "ganache"
+    ),
+  },
   solidity: {
     compilers: [
       {
@@ -131,6 +140,12 @@ const config: HardhatUserConfig = {
           optimizer: {
             enabled: true,
             runs: 200,
+          },
+          // https://docs.soliditylang.org/en/v0.8.14/internals/layout_in_storage.html
+          outputSelection: {
+            "*": {
+              "*": ["storageLayout"],
+            },
           },
         },
       },

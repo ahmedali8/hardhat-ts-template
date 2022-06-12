@@ -59,6 +59,10 @@ __metadata:
     hardhat-deploy: ^0.11.10
     hardhat-deploy-ethers: ^0.3.0-beta.13
     hardhat-gas-reporter: 1.0.8
+    hardhat-preprocessor: ^0.1.4
+    hardhat-storage-layout: ^0.1.6
+    hardhat-test-utils: ^0.1.1
+    hardhat-tracer: ^1.1.0-rc.6
     husky: ^8.0.1
     is-ci: ^3.0.1
     lint-staged: ^13.0.1
@@ -5483,6 +5487,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"console-table-printer@npm:^2.9.0":
+  version: 2.11.0
+  resolution: "console-table-printer@npm:2.11.0"
+  dependencies:
+    simple-wcswidth: ^1.0.1
+  checksum: 125797e3b936eb08182cc704eb8d6aaa6ab82c6fb1f739afad3dd06847b8a89227fe80f84ed105accfa6f4487ff12821f931727624bfda67d8a8ebdc1314f168
+  languageName: node
+  linkType: hard
+
 "constant-case@npm:^2.0.0":
   version: 2.0.0
   resolution: "constant-case@npm:2.0.0"
@@ -7442,7 +7455,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ethers@npm:5.6.8":
+"ethers@npm:5.6.8, ethers@npm:^5.6.1":
   version: 5.6.8
   resolution: "ethers@npm:5.6.8"
   dependencies:
@@ -8969,6 +8982,52 @@ __metadata:
   peerDependencies:
     hardhat: ^2.0.2
   checksum: bf18aacd08e0bdef81b180f3c97f76fcab885de3e92ed2dc014712e671c83ee7f77755c0e6c0f923a95f8372714cfcb7cdaa019afc42984c159603f8a8d724cf
+  languageName: node
+  linkType: hard
+
+"hardhat-preprocessor@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "hardhat-preprocessor@npm:0.1.4"
+  dependencies:
+    murmur-128: ^0.2.1
+  peerDependencies:
+    hardhat: ^2.0.5
+  checksum: 1dcc8dee877661d5e52fd6107bb22d94a9f207eb685db655a2210991c8e3ae079a0a38b8c327cafe4520336c38406371f1f11ddf997af55c6dbe55cc588d9c56
+  languageName: node
+  linkType: hard
+
+"hardhat-storage-layout@npm:^0.1.6":
+  version: 0.1.6
+  resolution: "hardhat-storage-layout@npm:0.1.6"
+  dependencies:
+    console-table-printer: ^2.9.0
+  peerDependencies:
+    hardhat: ^2.0.3
+  checksum: 041041582ca32ccce90a71a8c243c8cbf0cb09d908fcf69e3994b2805b84f37310cc825ad63ad47ccb803260a6c94237881b2ed9098ac4704e022c19045cd075
+  languageName: node
+  linkType: hard
+
+"hardhat-test-utils@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "hardhat-test-utils@npm:0.1.1"
+  peerDependencies:
+    "@nomiclabs/hardhat-ethers": ^2.0.5
+    ethers: ^5.0.0
+    hardhat: ^2.0.0
+  checksum: bd6276f88c085710097a3afc8f4176a4645de2eadaf3b3bd75c84e73a4903f6e4831233d742785b2aecfed5369155337c945fb0fe0447380675dfe1445986182
+  languageName: node
+  linkType: hard
+
+"hardhat-tracer@npm:^1.1.0-rc.6":
+  version: 1.1.0-rc.6
+  resolution: "hardhat-tracer@npm:1.1.0-rc.6"
+  dependencies:
+    ethers: ^5.6.1
+  peerDependencies:
+    chalk: 4.x
+    ethers: 5.x
+    hardhat: 2.x
+  checksum: 9c8fbf33c08cc082d8daba22bc6627e2d82caadbed7a4e6cd1e0a94851dcd5783d6de66f01ae979f8c8c0bb016590a4a368316cce1817db7bfa7e6d4b10af681
   languageName: node
   linkType: hard
 
@@ -14480,6 +14539,13 @@ __metadata:
     once: ^1.3.1
     simple-concat: ^1.0.0
   checksum: 230bd931d3198f21a5a1a566687a5ee1ef651b13b61c7a01b547b2a0c2bf72769b5fe14a3b4dd518e99a18ba1002ba8af3901c0e61e8a0d1e7631a3c2eb1f7a9
+  languageName: node
+  linkType: hard
+
+"simple-wcswidth@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "simple-wcswidth@npm:1.0.1"
+  checksum: dc5bf4cb131d9c386825d1355add2b1ecc408b37dc2c2334edd7a1a4c9f527e6b594dedcdbf6d949bce2740c3a332e39af1183072a2d068e40d9e9146067a37f
   languageName: node
   linkType: hard
 
