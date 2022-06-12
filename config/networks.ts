@@ -28,6 +28,7 @@ export enum NetworkName {
   GOERLI = "goerli",
   RINKEBY = "rinkeby",
   ROPSTEN = "ropsten",
+  SEPOLIA = "sepolia",
 
   // BINANCE SMART CHAIN
   BSC = "bsc",
@@ -80,6 +81,10 @@ export const NETWORKS: { readonly [key in NetworkName]: Network } = {
   [NetworkName.ROPSTEN]: {
     chainId: 3,
     url: infuraUrl("ropsten"),
+  },
+  [NetworkName.SEPOLIA]: {
+    chainId: 11155111,
+    url: "",
   },
 
   // BINANCE SMART CHAIN
