@@ -25,8 +25,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   // You don't want to verify on localhost
   try {
     if (chainId !== "31337" && chainId !== "1337") {
+      const contractPath = `contracts/${CONTRACT_NAME}.sol:${CONTRACT_NAME}`;
       await verifyContract({
-        contractName: CONTRACT_NAME,
+        contractPath: contractPath,
         contractAddress: deployResult.address,
         args: deployResult.args || [],
       });

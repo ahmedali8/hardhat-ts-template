@@ -13,7 +13,7 @@ export async function waitForConfirmations(
 }
 
 interface VerifyContract {
-  contractName: string;
+  contractPath: string;
   contractAddress: string;
   args: any[];
   delay?: number;
@@ -21,13 +21,13 @@ interface VerifyContract {
 
 /**
  * Programmatically verify a contract
- * @param {*} contractName contract name in string
- * @param {*} contractAddress contract address in string
- * @param {*} args constructor args in array
+ * @param contractPath contract name in string e.g. `contracts/${contractName}.sol:${contractName}`
+ * @param contractAddress contract address in string
+ * @param args constructor args in array
  * @param delay delay time in ms
  */
 export async function verifyContract({
-  contractName,
+  contractPath,
   contractAddress,
   args = [],
   delay = 60_000,
@@ -37,6 +37,6 @@ export async function verifyContract({
   await run("verify:verify", {
     address: contractAddress,
     constructorArguments: args,
-    contract: `contracts/${contractName}.sol:${contractName}`,
+    contract: contractPath,
   });
 }

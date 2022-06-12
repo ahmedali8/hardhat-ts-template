@@ -1,11 +1,9 @@
-import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
-import { getContractFactory } from "@nomiclabs/hardhat-ethers/types";
+import { Signer } from "@ethersproject/abstract-signer";
+import { Contract } from "@ethersproject/contracts";
 import chalk from "chalk";
-import { Contract, ContractFactory, Signer } from "ethers";
 import { ethers } from "hardhat";
 
-import { writeFile } from "./files";
-import { abiEncodeArgs, fromWei } from "./format";
+import { fromWei } from "./format";
 import { etherBalance, getExtraGasInfo } from "./misc";
 
 export async function getContractIns(
