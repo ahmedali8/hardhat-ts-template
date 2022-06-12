@@ -14,8 +14,15 @@
     "@ethersproject/address": "^5.6.1",
     "@ethersproject/bignumber": "^5.6.2",
     "@ethersproject/bytes": "^5.6.1",
+    "@ethersproject/constants": "^5.6.1",
+    "@ethersproject/contracts": "^5.6.2",
+    "@ethersproject/logger": "^5.6.0",
     "@ethersproject/providers": "^5.6.8",
+    "@ethersproject/solidity": "^5.6.1",
+    "@ethersproject/transactions": "^5.6.2",
     "@ethersproject/units": "^5.6.1",
+    "@ethersproject/wallet": "^5.6.2",
+    "@ethersproject/wordlists": "^5.6.1",
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13",
     "@nomiclabs/hardhat-etherscan": "^3.1.0",
     "@nomiclabs/hardhat-waffle": "2.0.3",
@@ -105,6 +112,7 @@
     "prettier:check": "prettier --check --config ./.prettierrc.yaml \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
     "size": "hardhat size-contracts",
     "test": "hardhat test",
-    "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain"
+    "typechain": "cross-env TS_NODE_TRANSPILE_ONLY=true hardhat typechain",
+    "verify": "hardhat run scripts/verify.ts --network"
   }
 }

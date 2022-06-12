@@ -16,8 +16,15 @@ __metadata:
     "@ethersproject/address": ^5.6.1
     "@ethersproject/bignumber": ^5.6.2
     "@ethersproject/bytes": ^5.6.1
+    "@ethersproject/constants": ^5.6.1
+    "@ethersproject/contracts": ^5.6.2
+    "@ethersproject/logger": ^5.6.0
     "@ethersproject/providers": ^5.6.8
+    "@ethersproject/solidity": ^5.6.1
+    "@ethersproject/transactions": ^5.6.2
     "@ethersproject/units": ^5.6.1
+    "@ethersproject/wallet": ^5.6.2
+    "@ethersproject/wordlists": ^5.6.1
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers@^0.3.0-beta.13"
     "@nomiclabs/hardhat-etherscan": ^3.1.0
     "@nomiclabs/hardhat-waffle": 2.0.3
@@ -1157,7 +1164,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/contracts@npm:5.6.2":
+"@ethersproject/contracts@npm:5.6.2, @ethersproject/contracts@npm:^5.6.2":
   version: 5.6.2
   resolution: "@ethersproject/contracts@npm:5.6.2"
   dependencies:
@@ -1584,7 +1591,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/solidity@npm:5.6.1":
+"@ethersproject/solidity@npm:5.6.1, @ethersproject/solidity@npm:^5.6.1":
   version: 5.6.1
   resolution: "@ethersproject/solidity@npm:5.6.1"
   dependencies:
@@ -1739,7 +1746,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/wallet@npm:5.6.2":
+"@ethersproject/wallet@npm:5.6.2, @ethersproject/wallet@npm:^5.6.2":
   version: 5.6.2
   resolution: "@ethersproject/wallet@npm:5.6.2"
   dependencies:
