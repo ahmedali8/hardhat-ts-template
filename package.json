@@ -81,6 +81,7 @@
   "private": true,
   "packageManager": "yarn@3.2.0",
   "scripts": {
+    "accounts": "hardhat accounts",
     "chain": "hardhat node --no-deploy --export-all ./generated/chain.json --network hardhat",
     "clean": "shx rm -rf ./generated/artifacts ./generated/cache ./coverage ./src/types/* ./coverage.json",
     "clean:generated": "shx rm -rf ./generated",
@@ -98,6 +99,7 @@
     "lint": "yarn lint:sol && yarn lint:ts && yarn prettier:check",
     "lint:sol": "solhint --config ./.solhint.json --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --config ./.eslintrc.yaml --ignore-path ./.eslintignore --ext .js,.ts .",
+    "networks": "hardhat networks",
     "postinstall": "is-ci || husky install",
     "prettier": "prettier --config ./.prettierrc.yaml --write \"**/*.{js,json,md,sol,ts,yaml,yml}\"",
     "prettier:check": "prettier --check --config ./.prettierrc.yaml \"**/*.{js,json,md,sol,ts,yaml,yml}\"",

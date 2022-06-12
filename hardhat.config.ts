@@ -14,7 +14,8 @@ import {
 import { resolve } from "path";
 import "solidity-coverage";
 
-// require tasks
+import { API_KEYS } from "./config/api-keys";
+import { NETWORKS, Network, NetworkName } from "./config/networks";
 import "./tasks";
 
 dotenvConfig({ path: resolve(__dirname, "./.env") });
@@ -30,81 +31,6 @@ if (
 ) {
   throw new Error("Please set at least one PRIVATE_KEY_1 in a .env file");
 }
-
-const INFURA_KEY = process.env.INFURA_PROJECT_ID;
-if (typeof INFURA_KEY === "undefined") {
-  throw new Error(`INFURA_PROJECT_ID must be a defined environment variable`);
-}
-
-const infuraUrl = (network: string): string =>
-  `https://${network}.infura.io/v3/${INFURA_KEY}`;
-
-const networks = {
-  // LOCAL
-  ganache: { chainId: 1337, url: "http://127.0.0.1:7545" },
-
-  // ETHEREUM
-  mainnet: {
-    chainId: 1,
-    url: infuraUrl("mainnet"),
-  },
-  kovan: {
-    chainId: 42,
-    url: infuraUrl("kovan"),
-  },
-  goerli: {
-    chainId: 5,
-    url: infuraUrl("goerli"),
-  },
-  rinkeby: {
-    chainId: 4,
-    url: infuraUrl("rinkeby"),
-  },
-  ropsten: {
-    chainId: 3,
-    url: infuraUrl("ropsten"),
-  },
-
-  // BINANCE SMART CHAIN
-  bsc: {
-    chainId: 56,
-    url: process.env.BSC_MAINNET_RPC_URL,
-  },
-  bscTestnet: {
-    chainId: 97,
-    url: process.env.BSC_TESTNET_RPC_URL,
-  },
-
-  // MATIC/POLYGON
-  polygon: {
-    chainId: 137,
-    url: infuraUrl("polygon-mainnet"),
-  },
-  polygonMumbai: {
-    chainId: 80001,
-    url: infuraUrl("polygon-mumbai"),
-  },
-
-  // OPTIMISM
-  optimisticEthereum: {
-    chainId: 10,
-    url: infuraUrl("optimism-mainnet"),
-  },
-  optimisticKovan: {
-    chainId: 69,
-    url: infuraUrl("optimism-kovan"),
-  },
-
-  // ARBITRUM
-  arbitrumOne: {
-    chainId: 42161,
-    url: infuraUrl("arbitrum-mainnet"),
-  },
-  arbitrumTestnet: {
-    chainId: 421611,
-    url: infuraUrl("arbitrum-rinkeby"),
-  },
-};
 
 const getAccounts = (): HttpNetworkAccountsUserConfig => {
   if (ACCOUNT_TYPE === "MNEMONIC")
@@ -124,12 +50,22 @@ const getAccounts = (): HttpNetworkAccountsUserConfig => {
     ];
 };
 
-function getChainConfig(network: keyof typeof networks): NetworkUserConfig {
-  return {
-    accounts: getAccounts(),
-    chainId: networks[network].chainId,
-    url: networks[network].url,
-  };
+// { [key in NetworkName]: { chainId, url, accounts } }
+function getAllNetworkConfigs(): Record<NetworkName, NetworkUserConfig> {
+  const networkConfigs = Object.entries(NETWORKS).reduce<
+    Record<string, NetworkUserConfig>
+  >((memo, network) => {
+    const key = network[0] as NetworkName;
+    const value = network[1] as Network;
+
+    memo[key] = {
+      ...value,
+      accounts: getAccounts(),
+    };
+    return memo;
+  }, {});
+
+  return networkConfigs as Record<NetworkName, NetworkUserConfig>;
 }
 
 const config: HardhatUserConfig = {
@@ -145,27 +81,12 @@ const config: HardhatUserConfig = {
     runOnCompile: process.env.DOC_GEN ? true : false,
   },
   etherscan: {
-    apiKey: {
-      // ETHEREUM
-      mainnet: process.env.ETHERSCAN_API_KEY || "",
-      ropsten: process.env.ETHERSCAN_API_KEY || "",
-      rinkeby: process.env.ETHERSCAN_API_KEY || "",
-      goerli: process.env.ETHERSCAN_API_KEY || "",
-
-      // BINANCE SMART CHAIN
-      bsc: process.env.BSCSCAN_API_KEY || "",
-      bscTestnet: process.env.BSCSCAN_API_KEY || "",
-
-      // MATIC/POLYGON
-      polygon: process.env.POLYGONSCAN_API_KEY || "",
-      polygonMumbai: process.env.POLYGONSCAN_API_KEY || "",
-    },
+    apiKey: API_KEYS,
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS ? true : false,
     currency: "USD",
-    // if commented out then it fetches from ethGasStationAPI
-    // gasPrice: process.env.GAS_PRICE,
+    // gasPrice: process.env.GAS_PRICE, // if commented out then it fetches from ethGasStationAPI
     coinmarketcap: process.env.COIN_MARKET_CAP_API_KEY || undefined,
     excludeContracts: [],
     src: "./contracts",
@@ -178,27 +99,12 @@ const config: HardhatUserConfig = {
   networks: {
     // LOCAL
     hardhat: { chainId: 31337 },
-    ganache: {
-      chainId: networks["ganache"].chainId,
-      url: networks["ganache"].url,
-    },
     "truffle-dashboard": {
       url: "http://localhost:24012/rpc",
     },
+    ganache: { chainId: 1337, url: "http://127.0.0.1:7545" },
 
-    // ETHEREUM
-    mainnet: getChainConfig("mainnet"),
-    ropsten: getChainConfig("ropsten"),
-    rinkeby: getChainConfig("rinkeby"),
-    goerli: getChainConfig("goerli"),
-
-    // BINANCE SMART CHAIN
-    bsc: getChainConfig("bsc"),
-    bscTestnet: getChainConfig("bscTestnet"),
-
-    // MATIC/POLYGON
-    polygon: getChainConfig("polygon"),
-    polygonMumbai: getChainConfig("polygonMumbai"),
+    ...getAllNetworkConfigs(),
   },
   paths: {
     artifacts: "./generated/artifacts",
