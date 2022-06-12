@@ -63,32 +63,18 @@ Run the Mocha tests:
 
 ```sh
 $ yarn test
-```
 
-### Forking mainnet
+or
 
-Starts a local hardhat chain with the state of the last `mainnet` block
+$ yarn test:gas         # shows gas report and contract size
 
-```
-$ yarn fork
-```
+or
 
-For some helpful fork utils checkout [fork.js](https://github.com/ahmedali8/hardhat-js-starterkit/blob/main/utils/fork.js)
+$ yarn test:trace       # shows logs + calls
 
-### Coverage
+or
 
-Generate the code coverage report:
-
-```sh
-$ yarn coverage
-```
-
-### Report Gas
-
-See the gas usage per unit test and average gas per method call:
-
-```sh
-$ REPORT_GAS=true yarn test
+$ yarn test:fulltrace   # shows logs + calls + sloads + sstores
 ```
 
 Optional:
@@ -100,7 +86,24 @@ Optional:
 ```sh
 $ GAS_PRICE=20
 $ COIN_MARKET_CAP_API_KEY="your_api_key"
-$ yarn test
+```
+
+### Forking mainnet
+
+Starts a local hardhat chain with the state of the last `mainnet` block
+
+```
+$ yarn fork
+```
+
+For some helpful fork utils checkout [fork.ts](https://github.com/ahmedali8/hardhat-ts-starterkit/tree/main/utils/fork.ts)
+
+### Coverage
+
+Generate the code coverage report:
+
+```sh
+$ yarn coverage
 ```
 
 ### Clean
@@ -133,7 +136,7 @@ Generate natspec documentation for your contracts by runing
 $ yarn dodoc
 ```
 
-For more information on Natspec [click here](https://docs.soliditylang.org/en/v0.8.12/natspec-format.html#natspec) and for hardhat docgen [click here](https://github.com/ItsNickBarry/hardhat-docgen)
+For more information on Natspec [click here](https://docs.soliditylang.org/en/v0.8.12/natspec-format.html#natspec) and for dodoc repo [click here](https://github.com/primitivefinance/primitive-dodoc)
 
 ### View Contracts Size
 
@@ -152,18 +155,18 @@ $ CONTRACT_SIZER=true
 ### Manual Verify
 
 ```sh
-$ npx hardhat verify --network <network> DEPLOYED_CONTRACT_ADDRESS "Constructor argument 1" "Constructor argument 2"
+$ yarn hardhat verify --network <network> DEPLOYED_CONTRACT_ADDRESS "Constructor argument 1" "Constructor argument 2"
 ```
 
 For complex arguments you can refer [here](https://hardhat.org/plugins/nomiclabs-hardhat-etherscan.html)
 
 ```sh
-$ npx hardhat verify --contract contracts/CONTRACT_NAME.sol:CONTRACT_NAME --network <network> --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
+$ yarn hardhat verify --contract contracts/CONTRACT_NAME.sol:CONTRACT_NAME --network <network> --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 ```
 
 ### Verify Contract Programmatically
 
-Verify the contract using `verifyContract` function in [verify.js](https://github.com/ahmedali8/hardhat-starterkit/blob/main/utils/verify.js)
+Verify the contract using `verifyContract` function in [verify.ts](https://github.com/ahmedali8/hardhat-ts-starterkit/tree/main/utils/verify.ts)
 
 Set etherscan/bscscan/polygonscan api key in `.env` file or using command, refer to `.env.example` for more insight.
 
@@ -173,28 +176,36 @@ $ ETHERSCAN_API_KEY="your_api_key"
 
 If you don't already have an api key, use either of one [etherscan](https://etherscan.io/), [bscscan](https://bscscan.com/), [polygonscan](https://polygonscan.com/) according to the network you want.
 
-Example deploy script with `verifyContract` function is [here](https://github.com/ahmedali8/hardhat-starterkit/blob/main/scripts/deploy.js)
+Example deploy script with `verifyContract` function is [here](https://github.com/ahmedali8/hardhat-ts-starterkit/tree/main/scripts/deploy.ts)
 
 ## Additional Tasks
 
-### flatfile
+- ### flatfile
 
 We often need to flatten our code for verification purposes or any other but the existing default `flatten` task requires manual copy-paste from terminal
 and creation of whatever file extension we want but we can automate the creation of the flatten file by using a new `flatfile` task and providing the
 contract name with `--contract` flag
 
 ```sh
-$ npx hardhat flatfile --contract CONTRACT_NAME
+$ yarn hardhat flatfile --contract CONTRACT_NAME
 or
 $ yarn flatfile:contract CONTRACT_NAME
 ```
 
 where, `CONTRACT_NAME` can be for example `TestingContract`
 
+- ### storagelayout
+
+Display a table having storage layout of your smart contract after compilation
+
+```sh
+$ yarn compile && yarn hardhat storagelayout
+```
+
 ## Syntax Highlighting
 
-If you use VSCode, you can enjoy syntax highlighting for your Solidity code via the
-[vscode-solidity](https://github.com/juanfranblanco/vscode-solidity) extension. The recommended approach to set the
+If you use VSCode, you can enjoy syntax highlighting for your Solidity code via the [hardhat-vscode](https://github.com/NomicFoundation/hardhat-vscode) or
+[vscode-solidity](https://github.com/juanfranblanco/vscode-solidity) extension. For the latter one the recommended approach to set the
 compiler version is to add the following fields to your VSCode user settings or in workspace settings json file:
 
 ```json
