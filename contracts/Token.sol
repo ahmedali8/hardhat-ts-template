@@ -4,7 +4,7 @@ pragma solidity 0.8.14;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
- *@title Testing ERC20 contract
+ *@title ERC20 Token contract
  *@author Ahmed Ali <github.com/ahmedali8>
  *@notice You can use this contract for creation of ERC20 token
  */

@@ -1,10 +1,10 @@
 import "@nomiclabs/hardhat-etherscan";
 import "@nomiclabs/hardhat-waffle";
+import "@primitivefi/hardhat-dodoc";
 import "@typechain/hardhat";
 import { config as dotenvConfig } from "dotenv";
 import "hardhat-contract-sizer";
 import "hardhat-deploy";
-import "hardhat-docgen";
 import "hardhat-gas-reporter";
 import { HardhatUserConfig } from "hardhat/config";
 import {
@@ -75,10 +75,13 @@ const config: HardhatUserConfig = {
     disambiguatePaths: false,
   },
   defaultNetwork: "hardhat",
-  docgen: {
-    path: "./generated/docs",
-    clear: true,
-    runOnCompile: process.env.DOC_GEN ? true : false,
+  dodoc: {
+    runOnCompile: false,
+    debugMode: false,
+    keepFileStructure: true,
+    freshOutput: true,
+    outputDir: "./generated/docs",
+    include: ["contracts"],
   },
   etherscan: {
     apiKey: API_KEYS,
