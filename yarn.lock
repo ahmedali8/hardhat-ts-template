@@ -65,7 +65,6 @@ __metadata:
     mocha: ^10.0.0
     prettier: ^2.6.2
     prettier-plugin-solidity: ^1.0.0-beta.19
-    ramda: ^0.28.0
     shelljs: ^0.8.5
     shx: 0.3.4
     solhint: 3.3.7
@@ -13300,13 +13299,6 @@ __metadata:
   version: 4.0.1
   resolution: "quick-lru@npm:4.0.1"
   checksum: bea46e1abfaa07023e047d3cf1716a06172c4947886c053ede5c50321893711577cb6119360f810cc3ffcd70c4d7db4069c3cee876b358ceff8596e062bd1154
-  languageName: node
-  linkType: hard
-
-"ramda@npm:^0.28.0":
-  version: 0.28.0
-  resolution: "ramda@npm:0.28.0"
-  checksum: 44ea6e5010bba70151b6a92d8114a91915e8b5a16105cce65fae58c9d7386b812c429645e35f21141d7087568550ce383bc10ee1a65cdec951f4b69ea457e6a4
   languageName: node
   linkType: hard
 
