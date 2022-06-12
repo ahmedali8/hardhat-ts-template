@@ -4,7 +4,7 @@ import chalk from "chalk";
 import { ethers } from "hardhat";
 
 import { fromWei } from "./format";
-import { etherBalance, getExtraGasInfo } from "./misc";
+import { getExtraGasInfo } from "./misc";
 
 export async function getContractIns(
   contractNameOrAbi: string | any[],
@@ -22,7 +22,7 @@ export async function preDeploy({
   contractName: string;
 }): Promise<void> {
   const { chainId, name } = await ethers.provider.getNetwork();
-  const ethBalance = await etherBalance(signerAddress);
+  const ethBalance = await ethers.provider.getBalance(signerAddress);
 
   console.log(
     ` 🛰  Deploying: ${chalk.cyan(

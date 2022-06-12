@@ -1,7 +1,7 @@
 import { TransactionResponse } from "@ethersproject/abstract-provider";
+import { Signer } from "@ethersproject/abstract-signer";
 import { getAddress } from "@ethersproject/address";
-import { BigNumber, Signer } from "ethers";
-import { ethers } from "hardhat";
+import { BigNumber } from "@ethersproject/bignumber";
 
 import { fromWei, toGwei } from "./format";
 
@@ -14,17 +14,17 @@ export async function delayLog(ms: number) {
   await sleep(ms);
 }
 
-/**
- * Get ether balance of address provided.
- * @param {*} address valid eth address.
- * @returns undefined or Balance in BN.
- */
-export async function etherBalance(
-  address: string
-): Promise<BigNumber | undefined> {
-  if (!isAddress(address)) return;
-  return await ethers.provider.getBalance(address);
-}
+// /**
+//  * Get ether balance of address provided.
+//  * @param {*} address valid eth address.
+//  * @returns undefined or Balance in BN.
+//  */
+// export async function etherBalance(
+//   address: string
+// ): Promise<BigNumber | undefined> {
+//   if (!isAddress(address)) return;
+//   return await ethers.provider.getBalance(address);
+// }
 
 /**
  * returns the checksummed address if the address is valid,
