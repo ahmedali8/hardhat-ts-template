@@ -8,8 +8,7 @@ if (typeof INFURA_KEY === "undefined") {
   throw new Error(`INFURA_PROJECT_ID must be a defined environment variable`);
 }
 
-const infuraUrl = (network: string): string =>
-  `https://${network}.infura.io/v3/${INFURA_KEY}`;
+const infuraUrl = (network: string): string => `https://${network}.infura.io/v3/${INFURA_KEY}`;
 
 /**
  * All supported network names

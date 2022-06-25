@@ -6,9 +6,7 @@ const makeDirectoryAsync = fs.mkdir;
 const readFileAsync = fs.readFile;
 const writeFileAsync = fs.writeFile;
 
-export const ensureDirectoryExists = async (
-  directory: PathLike
-): Promise<void> => {
+export const ensureDirectoryExists = async (directory: PathLike): Promise<void> => {
   try {
     await makeDirectoryAsync(directory, { recursive: true });
   } catch (err) {
@@ -21,10 +19,7 @@ export const writeFile = async (filePath: string, data: any): Promise<void> => {
   await writeFileAsync(filePath, data);
 };
 
-export const writeJSONFile = async (
-  filePath: string,
-  data: any
-): Promise<void> => {
+export const writeJSONFile = async (filePath: string, data: any): Promise<void> => {
   await writeFile(filePath, JSON.stringify(data, null, 2));
 };
 

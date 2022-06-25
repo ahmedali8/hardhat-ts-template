@@ -3,10 +3,7 @@ import { run } from "hardhat";
 
 import { delayLog } from "./misc";
 
-export async function waitForConfirmations(
-  tx: TransactionResponse,
-  waitConfirmations = 5
-) {
+export async function waitForConfirmations(tx: TransactionResponse, waitConfirmations = 5) {
   if (!tx) return;
   console.log(`waiting for ${waitConfirmations} confirmations ...`);
   await tx.wait(waitConfirmations);

@@ -7,34 +7,21 @@ import { formatUnits, parseUnits } from "@ethersproject/units";
  * @param labelValue number.
  * @return string value or undefined.
  */
-export function convertToInternationalCurrencySystem(
-  labelValue: number
-): string | undefined {
+export function convertToInternationalCurrencySystem(labelValue: number): string | undefined {
   if (!labelValue) {
     return undefined;
   }
   // Nine Zeroes for Billions
   if (Math.abs(Number(labelValue)) >= 1000000000) {
-    return (
-      (Math.abs(Number(labelValue)) / 1000000000)
-        .toFixed(2)
-        .replace(/\.?0+$/, "") + " B"
-    );
+    return (Math.abs(Number(labelValue)) / 1000000000).toFixed(2).replace(/\.?0+$/, "") + " B";
   }
   // Six Zeroes for Millions
   else if (Math.abs(Number(labelValue)) >= 1000000) {
-    return (
-      (Math.abs(Number(labelValue)) / 1000000)
-        .toFixed(2)
-        .replace(/\.?0+$/, "") + " M"
-    );
+    return (Math.abs(Number(labelValue)) / 1000000).toFixed(2).replace(/\.?0+$/, "") + " M";
   }
   // Three Zeroes for Thousands
   else if (Math.abs(Number(labelValue)) >= 1000) {
-    return (
-      (Math.abs(Number(labelValue)) / 1000).toFixed(2).replace(/\.?0+$/, "") +
-      " K"
-    );
+    return (Math.abs(Number(labelValue)) / 1000).toFixed(2).replace(/\.?0+$/, "") + " K";
   } else {
     return Math.abs(Number(labelValue)).toString();
   }
@@ -68,10 +55,7 @@ export function toBN(value: string | number | bigint): BigNumber {
  * @param precision fractionDecimals.
  * @return string value or undefined.
  */
-export function numToFix(
-  value: number,
-  precision: number = 4
-): string | undefined {
+export function numToFix(value: number, precision: number = 4): string | undefined {
   if (!value) return undefined;
 
   return value.toFixed(precision);
@@ -123,10 +107,7 @@ export function fromWei(value: BigNumberish, decimals: number = 18): string {
  * @param decimals decimal value or BigNumberish.
  * @return number value or undefined.
  */
-export function fromWeiToNum(
-  value: BigNumberish,
-  decimals: number = 18
-): number | undefined {
+export function fromWeiToNum(value: BigNumberish, decimals: number = 18): number | undefined {
   if (!value) return undefined;
 
   const fromWeiString = fromWei(value, decimals) ?? "";

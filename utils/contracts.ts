@@ -25,9 +25,7 @@ export async function preDeploy({
   const ethBalance = await ethers.provider.getBalance(signerAddress);
 
   console.log(
-    ` 🛰  Deploying: ${chalk.cyan(
-      contractName
-    )} to Network: ${name} & ChainId: ${chainId}`
+    ` 🛰  Deploying: ${chalk.cyan(contractName)} to Network: ${name} & ChainId: ${chainId}`
   );
   console.log(
     ` 🎭 Deployer: ${chalk.cyan(signerAddress)}, Balance: ${chalk.grey(
@@ -50,12 +48,7 @@ export async function postDeploy({
     extraGasInfo = (await getExtraGasInfo(contract.deployTransaction)) ?? "";
   }
 
-  console.log(
-    " 📄",
-    chalk.cyan(contractName),
-    "deployed to:",
-    chalk.magenta(contract.address)
-  );
+  console.log(" 📄", chalk.cyan(contractName), "deployed to:", chalk.magenta(contract.address));
   console.log(" ⛽", chalk.grey(extraGasInfo));
   return contract;
 }

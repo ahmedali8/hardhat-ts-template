@@ -11,10 +11,7 @@ import "hardhat-storage-layout";
 import "hardhat-test-utils";
 import "hardhat-tracer";
 import { HardhatUserConfig } from "hardhat/config";
-import {
-  HttpNetworkAccountsUserConfig,
-  NetworkUserConfig,
-} from "hardhat/types";
+import { HttpNetworkAccountsUserConfig, NetworkUserConfig } from "hardhat/types";
 import { resolve } from "path";
 import "solidity-coverage";
 
@@ -29,10 +26,7 @@ const mnemonic: string = process.env.MNEMONIC || "";
 if (ACCOUNT_TYPE === "MNEMONIC" && !mnemonic) {
   throw new Error("Please set your MNEMONIC in a .env file");
 }
-if (
-  ACCOUNT_TYPE === "PRIVATE_KEYS" &&
-  typeof process.env.PRIVATE_KEY_1 === "undefined"
-) {
+if (ACCOUNT_TYPE === "PRIVATE_KEYS" && typeof process.env.PRIVATE_KEY_1 === "undefined") {
   throw new Error("Please set at least one PRIVATE_KEY_1 in a .env file");
 }
 
@@ -56,18 +50,19 @@ const getAccounts = (): HttpNetworkAccountsUserConfig => {
 
 // { [key in NetworkName]: { chainId, url, accounts } }
 function getAllNetworkConfigs(): Record<NetworkName, NetworkUserConfig> {
-  const networkConfigs = Object.entries(NETWORKS).reduce<
-    Record<string, NetworkUserConfig>
-  >((memo, network) => {
-    const key = network[0] as NetworkName;
-    const value = network[1] as Network;
+  const networkConfigs = Object.entries(NETWORKS).reduce<Record<string, NetworkUserConfig>>(
+    (memo, network) => {
+      const key = network[0] as NetworkName;
+      const value = network[1] as Network;
 
-    memo[key] = {
-      ...value,
-      accounts: getAccounts(),
-    };
-    return memo;
-  }, {});
+      memo[key] = {
+        ...value,
+        accounts: getAccounts(),
+      };
+      return memo;
+    },
+    {}
+  );
 
   return networkConfigs as Record<NetworkName, NetworkUserConfig>;
 }
@@ -128,7 +123,7 @@ const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.14",
+        version: "0.8.15",
         settings: {
           metadata: {
             // Not including the metadata hash

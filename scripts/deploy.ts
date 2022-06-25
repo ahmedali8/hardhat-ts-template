@@ -15,9 +15,7 @@ async function main() {
     signerAddress: owner.address,
     contractName: CONTRACT_NAME,
   });
-  const TokenContract: Token__factory = await ethers.getContractFactory(
-    CONTRACT_NAME
-  );
+  const TokenContract: Token__factory = await ethers.getContractFactory(CONTRACT_NAME);
   const token: Token = await TokenContract.deploy(
     "TokenName",
     "TCT",

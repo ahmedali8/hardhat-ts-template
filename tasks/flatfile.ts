@@ -12,16 +12,11 @@ task("flatfile", "Creates a flattened sol file")
   .setAction(async (taskArgs: TaskArguments) => {
     const { contract } = taskArgs;
 
-    const output = execSync(
-      `npx hardhat flatten contracts/${contract}.sol`
-    ).toString();
+    const output = execSync(`npx hardhat flatten contracts/${contract}.sol`).toString();
     console.log(output);
 
     const filename = pascalCase(contract);
-    const outputFileName = path.join(
-      process.cwd(),
-      `./generated/flattened/${filename}.txt`
-    );
+    const outputFileName = path.join(process.cwd(), `./generated/flattened/${filename}.txt`);
     await ensureDirectoryExists(path.dirname(outputFileName));
     await writeFile(outputFileName, output);
 

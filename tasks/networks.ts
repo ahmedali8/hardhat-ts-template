@@ -19,8 +19,6 @@ task("networks", "Prints the list of configured networks").setAction(
     });
 
     console.table(networksArray);
-    console.log(
-      "Run network specific command e.g. `npx hardhat accounts --network <networkName>`"
-    );
+    console.log("Run network specific command e.g. `npx hardhat accounts --network <networkName>`");
   }
 );

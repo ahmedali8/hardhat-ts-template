@@ -44,9 +44,7 @@ export function isAddress(value: string): string | false {
  * or other transaction executed
  * @returns null or information string
  */
-export async function getExtraGasInfo(
-  tx: TransactionResponse
-): Promise<string | null> {
+export async function getExtraGasInfo(tx: TransactionResponse): Promise<string | null> {
   if (!tx) return null;
   const gasPrice = tx.gasPrice;
   if (gasPrice === undefined) return null;
@@ -54,18 +52,13 @@ export async function getExtraGasInfo(
   const txReceipt = await tx.wait();
   const gas = txReceipt.gasUsed;
 
-  const extraGasInfo = `${toGwei(gasPrice)} gwei, ${fromWei(
-    gasUsed
-  )} ETH, ${gas} gas,
+  const extraGasInfo = `${toGwei(gasPrice)} gwei, ${fromWei(gasUsed)} ETH, ${gas} gas,
   txHash ${tx.hash}`;
 
   return extraGasInfo;
 }
 
-export async function send(
-  signer: Signer,
-  txParams: any
-): Promise<TransactionResponse> {
+export async function send(signer: Signer, txParams: any): Promise<TransactionResponse> {
   return await signer.sendTransaction(txParams);
   //    , (error, transactionHash) => {
   //     if (error) {
