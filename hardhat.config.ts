@@ -111,9 +111,10 @@ const config: HardhatUserConfig = {
   paths: {
     artifacts: "./generated/artifacts",
     cache: "./generated/cache",
+    deploy: "./deploy",
+    deployments: "./generated/deployments",
     sources: "./contracts",
     tests: "./test",
-    deployments: "./generated/deployments",
   },
   preprocess: {
     eachLine: removeConsoleLog(
