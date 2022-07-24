@@ -45,7 +45,6 @@ __metadata:
     "@typescript-eslint/parser": ^5.30.7
     chai: 4.3.6
     chalk: ^4.1.2
-    child_process: ^1.0.2
     commitizen: ^4.2.5
     cross-env: ^7.0.3
     cz-conventional-changelog: ^3.3.0
@@ -4194,13 +4193,6 @@ __metadata:
     parse5-htmlparser2-tree-adapter: ^6.0.1
     tslib: ^2.2.0
   checksum: ace2f9c5809737534b1320d11d48762013694fa905b4deacac81a634edac178c1b0534f79d7b1896a88ce489db6cb539f222317996b21c8b6923ce413dcc1a2f
-  languageName: node
-  linkType: hard
-
-"child_process@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "child_process@npm:1.0.2"
-  checksum: bd814d82bc8c6e85ed6fb157878978121cd03b5296c09f6135fa3d081fd9a6a617a6d509c50397711df713af403331241a9c0397a7fad30672051485e156c2a1
   languageName: node
   linkType: hard
 

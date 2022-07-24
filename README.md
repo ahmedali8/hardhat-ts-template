@@ -1,6 +1,6 @@
 # Hardhat Starterkit Template (TypeScript)
 
-#### Inspiration - [Solidity Template](https://github.com/paulrberg/solidity-template)
+#### Inspiration - [Hardhat Template](https://github.com/paulrberg/hardhat-template)
 
 - [Hardhat](https://github.com/nomiclabs/hardhat): compile and run the smart contracts on a local development network
 - [Ethers](https://github.com/ethers-io/ethers.js/): Ethereum library and wallet implementation
@@ -8,8 +8,10 @@
 - [Solcover](https://github.com/sc-forks/solidity-coverage): code coverage
 - [Prettier Plugin Solidity](https://github.com/prettier-solidity/prettier-plugin-solidity): code formatter
 
-This is a GitHub template, which means you can reuse it as many times as you want. You can do that by clicking the "Use this
-template" button at the top of the page.
+## Getting Started
+
+Click the [`Use this template`](https://github.com/ahmedali8/hardhat-ts-template/generate) button at the top of the page to
+create a new repository with this repo as the initial state.
 
 ## Usage
 
@@ -179,20 +181,6 @@ Example deploy script with `verifyContract` function is [here](https://github.co
 
 ## Additional Tasks
 
-- ### flatfile
-
-We often need to flatten our code for verification purposes or any other but the existing default `flatten` task requires manual copy-paste from terminal
-and creation of whatever file extension we want but we can automate the creation of the flatten file by using a new `flatfile` task and providing the
-contract name with `--contract` flag
-
-```sh
-$ yarn hardhat flatfile --contract CONTRACT_NAME
-or
-$ yarn flatfile:contract CONTRACT_NAME
-```
-
-where, `CONTRACT_NAME` can be for example `TestingContract`
-
 - ### storagelayout
 
 Display a table having storage layout of your smart contract after compilation
@@ -204,17 +192,7 @@ $ yarn compile && yarn hardhat storagelayout
 ## Syntax Highlighting
 
 If you use VSCode, you can enjoy syntax highlighting for your Solidity code via the [hardhat-vscode](https://github.com/NomicFoundation/hardhat-vscode) or
-[vscode-solidity](https://github.com/juanfranblanco/vscode-solidity) extension. For the latter one the recommended approach to set the
-compiler version is to add the following fields to your VSCode user settings or in workspace settings json file:
-
-```json
-{
-  "solidity.compileUsingRemoteVersion": "v0.8.4+commit.c7e474f2",
-  "solidity.defaultCompiler": "remote"
-}
-```
-
-Where of course `v0.8.4+commit.c7e474f2` can be replaced with any other version.
+[vscode-solidity](https://github.com/juanfranblanco/vscode-solidity) extension.
 
 ## Contributing
 
