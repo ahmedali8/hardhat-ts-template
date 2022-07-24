@@ -7,8 +7,8 @@ import { removeConsoleLog } from "hardhat-preprocessor";
 import "hardhat-storage-layout";
 import "hardhat-test-utils";
 import "hardhat-tracer";
-import { HardhatUserConfig } from "hardhat/config";
-import { HttpNetworkAccountsUserConfig, NetworkUserConfig } from "hardhat/types";
+import type { HardhatUserConfig } from "hardhat/config";
+import type { HttpNetworkAccountsUserConfig, NetworkUserConfig } from "hardhat/types";
 import { resolve } from "path";
 
 import { API_KEYS } from "./config/api-keys";

@@ -1,5 +1,5 @@
 import { task } from "hardhat/config";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import type { HardhatRuntimeEnvironment } from "hardhat/types";
 
 task("networks", "Prints the list of configured networks").setAction(
   async (_args, hre: HardhatRuntimeEnvironment) => {

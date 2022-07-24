@@ -1,5 +1,5 @@
-import { Signer } from "@ethersproject/abstract-signer";
-import { Contract } from "@ethersproject/contracts";
+import type { Signer } from "@ethersproject/abstract-signer";
+import type { Contract } from "@ethersproject/contracts";
 import chalk from "chalk";
 import { ethers } from "hardhat";
 

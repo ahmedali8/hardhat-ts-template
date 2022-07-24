@@ -1,5 +1,5 @@
-import { DeployFunction, DeployResult } from "hardhat-deploy/types";
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import type { DeployFunction, DeployResult } from "hardhat-deploy/types";
+import type { HardhatRuntimeEnvironment } from "hardhat/types";
 
 import { preDeploy } from "../utils/contracts";
 import { toWei } from "../utils/format";

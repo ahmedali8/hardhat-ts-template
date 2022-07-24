@@ -1,4 +1,4 @@
-import { TransactionResponse } from "@ethersproject/abstract-provider";
+import type { TransactionResponse } from "@ethersproject/abstract-provider";
 import { run } from "hardhat";
 
 import { delayLog } from "./misc";
