@@ -1,11 +1,8 @@
-import "@nomiclabs/hardhat-etherscan";
-import "@nomiclabs/hardhat-waffle";
+import "@nomicfoundation/hardhat-toolbox";
 import "@primitivefi/hardhat-dodoc";
-import "@typechain/hardhat";
 import { config as dotenvConfig } from "dotenv";
 import "hardhat-contract-sizer";
 import "hardhat-deploy";
-import "hardhat-gas-reporter";
 import { removeConsoleLog } from "hardhat-preprocessor";
 import "hardhat-storage-layout";
 import "hardhat-test-utils";
@@ -13,7 +10,6 @@ import "hardhat-tracer";
 import { HardhatUserConfig } from "hardhat/config";
 import { HttpNetworkAccountsUserConfig, NetworkUserConfig } from "hardhat/types";
 import { resolve } from "path";
-import "solidity-coverage";
 
 import { API_KEYS } from "./config/api-keys";
 import { NETWORKS, Network, NetworkName } from "./config/networks";

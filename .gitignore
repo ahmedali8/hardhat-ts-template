@@ -59,7 +59,7 @@ coverage.json
 **/.coverage_contracts
 
 # Tenderly
-tenderly.yaml
+tenderly.yml
 
 # Ignore flattened files
 flattened.sol
