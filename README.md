@@ -179,16 +179,6 @@ If you don't already have an api key, use either of one [etherscan](https://ethe
 
 Example deploy script with `verifyContract` function is [here](https://github.com/ahmedali8/hardhat-ts-starterkit/tree/main/scripts/deploy.ts)
 
-## Additional Tasks
-
-- ### storagelayout
-
-Display a table having storage layout of your smart contract after compilation
-
-```sh
-$ yarn compile && yarn hardhat storagelayout
-```
-
 ## Syntax Highlighting
 
 If you use VSCode, you can enjoy syntax highlighting for your Solidity code via the [hardhat-vscode](https://github.com/NomicFoundation/hardhat-vscode) or

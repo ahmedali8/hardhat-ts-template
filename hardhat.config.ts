@@ -5,8 +5,6 @@ import "hardhat-contract-sizer";
 import "hardhat-deploy";
 import { removeConsoleLog } from "hardhat-preprocessor";
 import "hardhat-storage-layout";
-import "hardhat-test-utils";
-import "hardhat-tracer";
 import type { HardhatUserConfig } from "hardhat/config";
 import type { HttpNetworkAccountsUserConfig, NetworkUserConfig } from "hardhat/types";
 import { resolve } from "path";
@@ -105,10 +103,10 @@ const config: HardhatUserConfig = {
     ...getAllNetworkConfigs(),
   },
   paths: {
-    artifacts: "./generated/artifacts",
-    cache: "./generated/cache",
+    artifacts: "./artifacts",
+    cache: "./cache",
     deploy: "./deploy",
-    deployments: "./generated/deployments",
+    deployments: "./deployments",
     sources: "./contracts",
     tests: "./test",
   },
