@@ -6,12 +6,40 @@ import { ethers } from "hardhat";
 import { fromWei } from "./format";
 import { getExtraGasInfo } from "./misc";
 
-export async function getContractIns(
+export async function getContractInstance<T extends Contract = Contract>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   contractNameOrAbi: string | any[],
   address: string,
   signer: Signer
-): Promise<Contract> {
-  return await ethers.getContractAt(contractNameOrAbi, address, signer);
+): Promise<T> {
+  return (await ethers.getContractAt(contractNameOrAbi, address, signer)) as T;
+}
+
+export async function getContractInstances<T extends Contract = Contract>(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  contractNameOrAbi: Array<string> | any[],
+  addresses: Array<string>,
+  signers: Array<Signer>
+): Promise<Array<T> | null> {
+  if (
+    contractNameOrAbi.length !== addresses.length &&
+    contractNameOrAbi.length !== signers.length
+  ) {
+    return null;
+  }
+
+  const instances: Array<T> = [] as Array<T>;
+
+  for (let i = 0; i < contractNameOrAbi.length; i++) {
+    const name = contractNameOrAbi[i];
+    const address = addresses[i];
+    const signer = signers[i];
+
+    const ins = await getContractInstance<T>(name, address, signer);
+    instances.push(ins);
+  }
+
+  return instances;
 }
 
 export async function preDeploy({
@@ -52,64 +80,3 @@ export async function postDeploy({
   console.log(" ⛽", chalk.grey(extraGasInfo));
   return contract;
 }
-
-// interface DeployContract {
-//   signer: SignerWithAddress;
-//   contractName: string;
-//   args?: Array<any>;
-//   overrides?: Record<string, unknown>;
-// }
-
-// export async function deployContract({
-//   signer,
-//   contractName,
-//   args = [],
-//   overrides,
-// }: DeployContract): Promise<Contract> {
-//   const { chainId, name } = await ethers.provider.getNetwork();
-//   const ethBalance = await etherBalance(signer.address);
-
-//   console.log(
-//     ` 🛰  Deploying: ${chalk.cyan(
-//       contractName
-//     )} to Network: ${name} & ChainId: ${chainId}`
-//   );
-//   console.log(
-//     ` 🎭 Deployer: ${chalk.cyan(signer.address)}, Balance: ${chalk.grey(
-//       fromWei(ethBalance ?? 0)
-//     )} ETH`
-//   );
-
-//   const contractArtifacts: ContractFactory = await getContractFactory(
-//     contractName
-//   );
-//   const contract = await contractArtifacts
-//     .connect(signer)
-//     .deploy(...args, overrides);
-//   await contract.deployed();
-
-//   let extraGasInfo = "";
-//   if (contract && contract.deployTransaction) {
-//     extraGasInfo = (await getExtraGasInfo(contract.deployTransaction)) ?? "";
-//   }
-
-//   console.log(
-//     " 📄",
-//     chalk.cyan(contractName),
-//     "deployed to:",
-//     chalk.magenta(contract.address)
-//   );
-//   console.log(" ⛽", chalk.grey(extraGasInfo));
-
-//   const encoded = abiEncodeArgs(contract, args);
-//   if (!encoded || encoded.length <= 2) return contract;
-//   await writeFile(`artifacts/${contractName}.address`, contract.address);
-//   await writeFile(`artifacts/${contractName}.args`, encoded.slice(2));
-
-//   // await tenderly.persistArtifacts({
-//   //   name: contractName,
-//   //   address: contract.address,
-//   // });
-
-//   return contract;
-// }

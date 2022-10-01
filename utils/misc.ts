@@ -1,6 +1,7 @@
 import type { TransactionResponse } from "@ethersproject/abstract-provider";
-import type { Signer } from "@ethersproject/abstract-signer";
 import { getAddress } from "@ethersproject/address";
+import { keccak256 } from "@ethersproject/solidity";
+import { computeAddress } from "@ethersproject/transactions";
 
 import { fromWei, toGwei } from "./format";
 
@@ -25,6 +26,12 @@ export function isAddress(value: string): string | false {
   }
 }
 
+export function createRandomChecksumAddress(salt: string): string {
+  const signerAddress: string = computeAddress(keccak256(["string"], [salt]));
+  const checkSummedSignerAddress: string = getAddress(signerAddress);
+  return checkSummedSignerAddress;
+}
+
 /**
  * Get necessary Gas information of a transaction.
  * @param {*} tx transaction response if contract deployed
@@ -43,8 +50,4 @@ export async function getExtraGasInfo(tx: TransactionResponse): Promise<string |
   txHash ${tx.hash}`;
 
   return extraGasInfo;
-}
-
-export async function send(signer: Signer, txParams: any): Promise<TransactionResponse> {
-  return await signer.sendTransaction(txParams);
 }
