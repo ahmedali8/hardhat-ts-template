@@ -38,15 +38,11 @@ yarn-error.log*
 
 # Hardhat files
 **/flattened
-**/docs
 **/build
 **/artifacts
 **/cache
 .deps
 **/types
-
-# TypeScript bindings output directory
-typechain-types
 
 # solidity-coverage directory and output file
 coverage
@@ -54,9 +50,6 @@ coverage.json
 **/.coverage_artifacts
 **/.coverage_cache
 **/.coverage_contracts
-
-# Tenderly
-tenderly.yml
 
 # Ignore flattened files
 flattened.sol

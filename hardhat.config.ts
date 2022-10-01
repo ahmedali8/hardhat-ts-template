@@ -74,7 +74,7 @@ const config: HardhatUserConfig = {
     debugMode: false,
     keepFileStructure: true,
     freshOutput: true,
-    outputDir: "./generated/docs",
+    outputDir: "./docs",
     include: ["contracts"],
   },
   etherscan: {
