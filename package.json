@@ -23,7 +23,6 @@
     "postinstall": "husky install && DOTENV_CONFIG_PATH=./.env.example yarn typechain",
     "prettier": "prettier --config ./.prettierrc.yml --write \"**/*.{js,json,md,sol,ts,yml}\"",
     "prettier:check": "prettier --check --config ./.prettierrc.yml \"**/*.{js,json,md,sol,ts,yml}\"",
-    "size": "hardhat size-contracts",
     "test": "hardhat test",
     "test:gas": "REPORT_GAS=true CONTRACT_SIZER=true hardhat test",
     "test:trace": "hardhat test --trace",
