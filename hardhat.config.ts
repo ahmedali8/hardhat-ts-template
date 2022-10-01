@@ -25,14 +25,8 @@ if (ACCOUNT_TYPE === "PRIVATE_KEYS" && typeof process.env.PRIVATE_KEY_1 === "und
 }
 
 const getAccounts = (): HttpNetworkAccountsUserConfig => {
-  if (ACCOUNT_TYPE === "MNEMONIC")
-    return {
-      mnemonic,
-      count: 10,
-      path: "m/44'/60'/0'/0",
-    };
-  // can add as many private keys as you want
-  else
+  if (ACCOUNT_TYPE === "PRIVATE_KEYS") {
+    // can add as many private keys as you want
     return [
       `0x${process.env.PRIVATE_KEY_1}`,
       // `0x${process.env.PRIVATE_KEY_2}`,
@@ -40,6 +34,13 @@ const getAccounts = (): HttpNetworkAccountsUserConfig => {
       // `0x${process.env.PRIVATE_KEY_4}`,
       // `0x${process.env.PRIVATE_KEY_5}`,
     ];
+  } else {
+    return {
+      mnemonic,
+      count: 10,
+      path: "m/44'/60'/0'/0",
+    };
+  }
 };
 
 // { [key in NetworkName]: { chainId, url, accounts } }
