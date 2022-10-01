@@ -1,8 +1,8 @@
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { ethers } from "hardhat";
 
-import type { Token } from "../../../src/types/contracts/Token";
-import type { Token__factory } from "../../../src/types/factories/contracts/Token__factory";
+import type { Token } from "../../../types/contracts/Token";
+import type { Token__factory } from "../../../types/factories/contracts/Token__factory";
 import { TOKEN_NAME, TOKEN_SYMBOL, TOTAL_SUPPLY } from "../../shared/constants";
 
 export async function tokenFixture(): Promise<{ token: Token }> {

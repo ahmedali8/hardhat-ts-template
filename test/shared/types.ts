@@ -1,6 +1,6 @@
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 
-import type { Token } from "../../src/types/contracts/Token";
+import type { Token } from "../../types/contracts/Token";
 
 type Fixture<T> = () => Promise<T>;
 
