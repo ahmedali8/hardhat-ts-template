@@ -1,5 +1,6 @@
 import { BigNumber, BigNumberish } from "@ethersproject/bignumber";
-import { formatUnits, parseUnits } from "@ethersproject/units";
+import { formatUnits } from "@ethersproject/units";
+import { fromBn, toBn } from "evm-bn";
 
 /**
  * Return the `labelValue` converted to string as Billions, Millions, Thousands etc.
@@ -83,7 +84,7 @@ export function toGwei(gasPrice: BigNumberish): string {
  * @return BigNumber value or undefined.
  */
 export function toWei(value: string, decimals: number = 18): BigNumber {
-  return parseUnits(value, decimals);
+  return toBn(value, decimals);
 }
 
 /**
@@ -91,23 +92,23 @@ export function toWei(value: string, decimals: number = 18): BigNumber {
  * formatUnits(value: BigNumberish, unitName?: BigNumberish | undefined): string
  * BigNumberish -> string, BigNumber, number, BytesLike or BigInt.`https://docs.ethers.io/v5/api/utils/bignumber/#BigNumberish`
  *
- * @param value BigNumberish value to be converted, preferred is BigNumber.
+ * @param value BigNumber value to be converted.
  * @param decimals decimal value or BigNumberish.
  * @return string value.
  */
-export function fromWei(value: BigNumberish, decimals: number = 18): string {
-  return formatUnits(value, decimals);
+export function fromWei(value: BigNumber, decimals: number = 18): string {
+  return fromBn(value, decimals);
 }
 
 /**
  * Return the `value` converted to number from wei.
  * BigNumberish -> string, BigNumber, number, BytesLike or BigInt.`https://docs.ethers.io/v5/api/utils/bignumber/#BigNumberish`
  *
- * @param value BigNumberish value to be converted, preferred is BigNumber.
+ * @param value BigNumber value to be converted.
  * @param decimals decimal value or BigNumberish.
  * @return number value or undefined.
  */
-export function fromWeiToNum(value: BigNumberish, decimals: number = 18): number | undefined {
+export function fromWeiToNum(value: BigNumber, decimals: number = 18): number | undefined {
   if (!value) return undefined;
 
   const fromWeiString = fromWei(value, decimals) ?? "";
@@ -118,13 +119,13 @@ export function fromWeiToNum(value: BigNumberish, decimals: number = 18): number
  * Return the `value` converted to fixed point number.
  * BigNumberish -> string, BigNumber, number, BytesLike or BigInt.`https://docs.ethers.io/v5/api/utils/bignumber/#BigNumberish`
  *
- * @param value BigNumberish value to be converted, preferred is BigNumber.
+ * @param value BigNumber value to be converted.
  * @param decimals decimal value or BigNumberish.
  * @param precision fractionDecimals.
  * @return number value or undefined.
  */
 export function fromWeiToFixedNum(
-  value: BigNumberish,
+  value: BigNumber,
   decimals: number = 18,
   precision: number = 4
 ): number | undefined {
