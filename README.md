@@ -260,7 +260,8 @@ Verify the contract using `verifyContract` function in [verify.ts](./utils/verif
 Set block explorer api key in `.env` file or using command, refer to `.env.example` for more
 insight.
 
-Example deploy script with `verifyContract` function is [here](./deploy/00_deploy_token_contract.ts)
+Example deploy script with `verifyContract` function is
+[00_deploy_lock_contract.ts](./deploy/00_deploy_lock_contract.ts)
 
 ## Syntax Highlighting
 
