@@ -1,7 +1,7 @@
 name: Create
 
-env:
-  DOTENV_CONFIG_PATH: "./.env.example"
+# env:
+#   DOTENV_CONFIG_PATH: "./.env.example"
 
 # The workflow will run only when `use this template` is used
 on:
@@ -21,11 +21,11 @@ jobs:
       - name: "Check out the repo"
         uses: "actions/checkout@v3"
 
-      # Inject all environment variables from ".env.example" in $GITHUB_ENV
-      - name: "Set dotenv"
-        uses: "c-py/action-dotenv-to-setenv@v2"
+      # # Inject all environment variables from ".env.example" in $GITHUB_ENV
+      - name: Load .env file
+        uses: xom9ikk/dotenv@v2
         with:
-          env-file: ".env.example"
+          mode: example
 
       - name: "Update package.json"
         run: ./.github/scripts/rename.sh "$GITHUB_REPOSITORY" "$GITHUB_REPOSITORY_OWNER"
@@ -36,7 +36,7 @@ jobs:
           echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
 
       - name: "Install the Node.js dependencies"
-        run: "yarn install"
+        run: "yarn install --inline-builds"
 
       - name: "Update commit"
         uses: stefanzweifel/git-auto-commit-action@v4
