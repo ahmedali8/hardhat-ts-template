@@ -24,7 +24,7 @@ jobs:
           cache: "yarn"
           node-version: "lts/*"
 
-      # # Inject all environment variables from ".env.example" in $GITHUB_ENV
+      # Inject all environment variables from ".env.example" in $GITHUB_ENV
       - name: Load .env file
         uses: xom9ikk/dotenv@v2
         with:

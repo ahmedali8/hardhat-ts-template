@@ -21,7 +21,7 @@ jobs:
       - name: "Check out the repo"
         uses: "actions/checkout@v3"
 
-      # # Inject all environment variables from ".env.example" in $GITHUB_ENV
+      # Inject all environment variables from ".env.example" in $GITHUB_ENV
       - name: Load .env file
         uses: xom9ikk/dotenv@v2
         with:
