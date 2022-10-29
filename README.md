@@ -9,7 +9,7 @@
 
 A Hardhat-based template for developing Solidity smart contracts, with sensible defaults.
 
-#### Inspiration - [Hardhat Template](https://github.com/ahmedali8/hardhat-ts-template)
+#### Inspiration - [Hardhat Template](https://github.com/paulrberg/hardhat-template)
 
 - [Hardhat](https://github.com/nomiclabs/hardhat): compile, run and test smart contracts
 - [TypeChain](https://github.com/ethereum-ts/TypeChain): generate TypeScript bindings for smart
