@@ -15,12 +15,12 @@ export default function shouldBehaveLikeWithdraw(): void {
 
   context("when called from another account", function () {
     it("reverts", async function () {
-      const otherAccount = this.signers.accounts[0];
+      const anotherAccount = this.signers.accounts[0];
       // We can increase the time in Hardhat Network
       await time.increaseTo(this.unlockTime);
 
       // We use lock.connect() to send a transaction from another account
-      await expect(this.contracts.lock.connect(otherAccount).withdraw()).to.be.revertedWith(
+      await expect(this.contracts.lock.connect(anotherAccount).withdraw()).to.be.revertedWith(
         Lock__Errors.YouArentTheOwner
       );
     });
