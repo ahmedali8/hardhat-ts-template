@@ -22,13 +22,13 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const args: [BigNumberish] = [unlockTime];
 
-  await preDeploy({ signerAddress: deployer, contractName: CONTRACT_NAME });
+  await preDeploy(deployer, CONTRACT_NAME);
   const deployResult: DeployResult = await deploy(CONTRACT_NAME, {
     // Learn more about args here: https://www.npmjs.com/package/hardhat-deploy#deploymentsdeploy
     from: deployer,
     args: args,
     log: true,
-    value: lockedAmount,
+    value: lockedAmount.toString(),
     // waitConfirmations: 5,
   });
 
