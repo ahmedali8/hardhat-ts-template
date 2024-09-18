@@ -2,7 +2,6 @@ import "@nomicfoundation/hardhat-toolbox";
 import "@primitivefi/hardhat-dodoc";
 import { config as dotenvConfig } from "dotenv";
 import "hardhat-contract-sizer";
-import "hardhat-deploy";
 import { removeConsoleLog } from "hardhat-preprocessor";
 import "hardhat-storage-layout";
 import "hardhat-test-suite-generator";
@@ -88,12 +87,6 @@ const config: HardhatUserConfig = {
     // gasPrice: process.env.GAS_PRICE, // if commented out then it fetches from ethGasStationAPI
     coinmarketcap: process.env.COIN_MARKET_CAP_API_KEY || undefined,
     excludeContracts: [],
-    src: "./contracts",
-  },
-  namedAccounts: {
-    deployer: {
-      default: 0, // here this will by default take the first account as deployer
-    },
   },
   networks: {
     // Local network configs
@@ -110,8 +103,6 @@ const config: HardhatUserConfig = {
   paths: {
     artifacts: "./artifacts",
     cache: "./cache",
-    deploy: "./deploy",
-    deployments: "./deployments",
     sources: "./contracts",
     tests: "./test",
   },
