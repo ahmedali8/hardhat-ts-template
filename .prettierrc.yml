@@ -6,6 +6,7 @@ tabWidth: 2
 trailingComma: "es5"
 plugins:
   - "@trivago/prettier-plugin-sort-imports"
+  - "prettier-plugin-solidity"
 
 overrides:
   - files: "*.sol"
