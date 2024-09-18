@@ -14,7 +14,8 @@ task("accounts", "Prints the list of accounts").setAction(async (_taskArgs, hre)
 
   for (const account of accounts) {
     const address = account.address;
-    const balanceInETH = fromWei(await account.getBalance());
+    const balance = await ethers.provider.getBalance(address);
+    const balanceInETH = fromWei(balance);
 
     accountsArray.push({
       address,
