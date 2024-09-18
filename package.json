@@ -88,5 +88,5 @@
   ],
   "license": "UNLICENSED",
   "private": true,
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@4.5.0"
 }
